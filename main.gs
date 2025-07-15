@@ -3,7 +3,7 @@
  */
 
 // Dimension Definitions
-const-DIMENSION_Z = {
+const DIMENSION_Z = {
   0: "standard limited company",
   1: "employee owned company",
   2: "single stakeholder cooperative",
@@ -115,9 +115,7 @@ function analyzeResponse(response) {
     X_self_assessment_text: xData.X_self_assessment_text,
     X_self_assessment_level: xData.X_self_assessment_level,
     X_scored_level: xData.X_scored_level,
-    Z_level_scores
-  };
-}
+    Z_level_scores,
     R_first_name,
     R_last_name,
     R_company_name,
