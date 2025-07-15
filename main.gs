@@ -672,18 +672,20 @@ function processDimensionY(response, Y_running_total) {
 }
 
 function generateEmail(analysis, response) {
+  const R_company_name = analysis.R_company_name;
+  const subject = `Results: how strong the foundations are of ${R_company_name}`;
+
   if (analysis.R_only_self_assessment_flag) {
-    return generateSelfAssessmentEmail();
+    return generateSelfAssessmentEmail(subject);
   }
 
   if (analysis.R_only_incorporation_flag) {
-    return generateIncorporationOnlyEmail(analysis);
+    return generateIncorporationOnlyEmail(analysis, subject);
   }
 
   const {
     R_first_name,
     R_business_intent,
-    R_company_name,
     DAO_form,
     Z_level_scores,
     Y_scored_level,
@@ -701,7 +703,7 @@ function generateEmail(analysis, response) {
   let body = `<p>Hi ${R_first_name},</p>`;
   body += `<p>Here is the first level evaluation of whether your foundations are strong enough to support your ${R_business_intent} business intention for your company ${R_company_name}. You can get a more thorough evaluation by <a href="https://www.evolutesix.com/legal-od-strong-enough">buying an initial consulting session</a> with us.</p>`;
 
-  body += "<p>So, how strong are your foundations, on a scale from 0 (no agency) to 5 (full agency) in each dimension? To build a truly viable future economy only full agency in all three dimensions is strong enough. Scoring 0 to 2 is inadequate, scoring 3 is marginal, and scoring 4 is good! Of course every score of 3 or above puts you in the top 1%!</p>";
+  body += "<p>So, how strong are your foundations, on a scale from 0 (no agency) to 5 (full agency) in each dimension? To build a truly viable future economy only full agency in all three dimensions is strong enough. Scoring 0 to 2 is inadequate, scoring 3 is marginal, scoring 4 is good, and scoring 5 is excellent! Of course even a score of 3 puts you in the top 1% vs. all other companies. So with 4 or 5 you really are pushing against the limits of today’s beliefs.</p>";
   body += "<ul>";
   if (!analysis.R_only_self_assessment_flag) {
     body += `<li>For the ${DAO_form} dimension your score is: ${Z_scored_level} ${AGENCY_NAME[Z_scored_level]}.</li>`;
@@ -982,20 +984,18 @@ function processDimensionX(response, X_running_total) {
   return { X_running_total, X_self_assessment_text, X_self_assessment_level, X_scored_level };
 }
 
-function generateSelfAssessmentEmail() {
-  const subject = "Your Self-Assessment Results";
-  let body = "Hello,\n\nThank you for completing the self-assessment.\n\n";
-  body += "As you chose to only provide your self-assessment we cannot give you any guidance on possible discrepancies between your foundation’s actual strength versus your beliefs.\n\n";
-  body += "Best regards,\nYour Name";
+function generateSelfAssessmentEmail(subject) {
+  let body = "<p>Hello,</p><p>Thank you for completing the self-assessment.</p>";
+  body += "<p>As you chose to only provide your self-assessment we cannot give you any guidance on possible discrepancies between your foundation’s actual strength versus your beliefs.</p>";
+  body += "<p>Best regards,<br>Your Name</p>";
   return { subject, body };
 }
 
-function generateIncorporationOnlyEmail() {
-  const subject = "Your Incorporation Analysis";
-  let body = "Hello,\n\nThank you for completing the incorporation assessment.\n\n";
-  body += "As you chose to only provide input on your incorporation, not on your operations (work and human dimensions), this analysis is only applicable to your incorporation.\n\n";
+function generateIncorporationOnlyEmail(analysis, subject) {
+  let body = "<p>Hello,</p><p>Thank you for completing the incorporation assessment.</p>";
+  body += "<p>As you chose to only provide input on your incorporation, not on your operations (work and human dimensions), this analysis is only applicable to your incorporation.</p>";
   // ... add analysis of dimension z here ...
-  body += "\nBest regards,\nYour Name";
+  body += "<p>Best regards,<br>Your Name</p>";
   return { subject, body };
 }
 
