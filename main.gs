@@ -701,7 +701,7 @@ function generateEmail(analysis, response) {
   const Z_scored_level = Z_level_scores.indexOf(Math.max(...Z_level_scores));
 
   let body = `<p>Hi ${R_first_name},</p>`;
-  body += `<p>Here is the first level evaluation of whether your foundations are strong enough to support your ${R_business_intent} business intention for your company ${R_company_name}. You can get a more thorough evaluation by <a href="https://www.evolutesix.com/legal-od-strong-enough">buying an initial consulting session</a> with us.</p>`;
+  body += `<p>Here is the first level evaluation of whether your foundations are strong enough to support your ${R_business_intent} business intention for your company ${R_company_name}.</p>`;
 
   body += "<p>So, how strong are your foundations, on a scale from 0 (no agency) to 5 (full agency) in each dimension? To build a truly viable future economy only full agency in all three dimensions is strong enough. Scoring 0 to 2 is inadequate, scoring 3 is marginal, scoring 4 is good, and scoring 5 is excellent! Of course even a score of 3 puts you in the top 1% vs. all other companies. So with 4 or 5 you really are pushing against the limits of today’s beliefs.</p>";
   body += "<ul>";
