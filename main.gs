@@ -698,10 +698,10 @@ function generateEmail(analysis, response) {
 
   const Z_scored_level = Z_level_scores.indexOf(Math.max(...Z_level_scores));
 
-  let body = `Hi ${R_first_name},\n\n`;
-  body += `Here is the first level evaluation of whether your foundations are strong enough to support your ${R_business_intent} business intention for your company ${R_company_name}. You can get a more thorough evaluation by <a href="https://www.evolutesix.com/legal-od-strong-enough">buying an initial consulting session</a> with us.\n\n`;
+  let body = `<p>Hi ${R_first_name},</p>`;
+  body += `<p>Here is the first level evaluation of whether your foundations are strong enough to support your ${R_business_intent} business intention for your company ${R_company_name}. You can get a more thorough evaluation by <a href="https://www.evolutesix.com/legal-od-strong-enough">buying an initial consulting session</a> with us.</p>`;
 
-  body += "So, how strong are your foundations, on a scale from 0 (no agency) to 5 (full agency) in each dimension? To build a truly viable future economy only full agency in all three dimensions is strong enough. Scoring 0 to 2 is inadequate, scoring 3 is marginal, and scoring 4 is good! Of course every score of 3 or above puts you in the top 1%!\n";
+  body += "<p>So, how strong are your foundations, on a scale from 0 (no agency) to 5 (full agency) in each dimension? To build a truly viable future economy only full agency in all three dimensions is strong enough. Scoring 0 to 2 is inadequate, scoring 3 is marginal, and scoring 4 is good! Of course every score of 3 or above puts you in the top 1%!</p>";
   body += "<ul>";
   if (!analysis.R_only_self_assessment_flag) {
     body += `<li>For the ${DAO_form} dimension your score is: ${Z_scored_level} ${AGENCY_NAME[Z_scored_level]}.</li>`;
@@ -718,21 +718,21 @@ function generateEmail(analysis, response) {
     body += `<li>For the work / organisation design dimension your self-assessment is: ${Y_self_assessment_level} ${AGENCY_NAME[Y_self_assessment_level]}.</li>`;
     body += `<li>For the human dimension your self-assessment is: ${X_self_assessment_level} ${AGENCY_NAME[X_self_assessment_level]}.</li>`;
   }
-  body += "</ul>\n\n";
+  body += "</ul>";
 
   if (R_DAO_flag) {
-    body += "Since you’re using a DAO, this automated questionnaire will give you good directional guidance on whether the strength of your foundations is enough for your intent, but to get more you need the dialogue of the next stage, a consulting session.\n";
+    body += "<p>Since you’re using a DAO, this automated questionnaire will give you good directional guidance on whether the strength of your foundations is enough for your intent, but to get more you need the dialogue of the next stage, a consulting session.</p>";
     const daoResponse = response["Are you using a DAO?"];
     if (daoResponse === "Yes, a pure DAO. If so, choose the answer for the remaining questions on incorporation that best reflects your DAO's structure and governance.") {
-      body += "Because you’re using a pure DAO without legal personhood, the key question we ought to begin with is the potential liability of your members. For example, in the class action law suit against bZx DAO, the court found that the DAO was an unincorporated association, and as such the members could be held severally and jointly liable.\n";
+      body += "<p>Because you’re using a pure DAO without legal personhood, the key question we ought to begin with is the potential liability of your members. For example, in the class action law suit against bZx DAO, the court found that the DAO was an unincorporated association, and as such the members could be held severally and jointly liable.</p>";
     } else if (daoResponse === "Yes, and it is in a jurisdiction that recognises my DAO as a legal person, i.e., as incorporated. If so, choose the answer for the remaining questions on incorporation that best reflects the whole.") {
-      body += "Well done using an incorporated DAO form, that gives you a stronger foundation than a pure unincorporated DAO.\n";
+      body += "<p>Well done using an incorporated DAO form, that gives you a stronger foundation than a pure unincorporated DAO.</p>";
     } else if (daoResponse === "Yes, and I have wrapped the DAO in a legal entity. If so, choose the answer for the remaining questions on incorporation that best reflects the whole.") {
-      body += "Well done using a DAO wrapped in an incorporated legal entity, that gives you a stronger foundation than a pure unincorporated DAO. One key question to address in a consulting session is the alignment of the DAO and legal entity governance, especially any gaps.\n";
+      body += "<p>Well done using a DAO wrapped in an incorporated legal entity, that gives you a stronger foundation than a pure unincorporated DAO. One key question to address in a consulting session is the alignment of the DAO and legal entity governance, especially any gaps.</p>";
     }
   }
 
-  body += `Given your business intention is ${R_business_intent},\n`;
+  body += `<p>Given your business intention is ${R_business_intent},</p>`;
 
   const regenerativeIntents = ["Regenerative", "Sustainable", "Circular", "Net Positive", "Impact"];
   const healthyIntents = ["Be an organisation healthy for staff (e.g. Teal)", "Serve the community", "Stay true to my purpose"];
@@ -740,43 +740,43 @@ function generateEmail(analysis, response) {
 
   if (regenerativeIntents.includes(R_business_intent)) {
     if (Z_scored_level === 5 && Y_scored_level === 5 && X_scored_level === 5) {
-      body += "you have, or are building, the strongest foundations around. Well done! If we’re not already in contact, we’d love to get to know you and your company better.\n";
+      body += "<p>you have, or are building, the strongest foundations around. Well done! If we’re not already in contact, we’d love to get to know you and your company better.</p>";
     } else if (Z_scored_level >= 4 && Y_scored_level >= 4 && X_scored_level >= 4) {
-      body += `your ${DAO_form} is almost strong enough; and your work / organisation design is strong enough; and your human foundation is strong enough. Well done! You’re likely building foundations way stronger than most! To find out where you can get even stronger, buy the follow-on consulting session.\n`;
+      body += `<p>your ${DAO_form} is almost strong enough; and your work / organisation design is strong enough; and your human foundation is strong enough. Well done! You’re likely building foundations way stronger than most! To find out where you can get even stronger, buy the follow-on consulting session.</p>`;
     } else if (Z_scored_level === 3) {
-      body += `even though you’re incorporating in a new way that superbly solves many of the problems business causes, you’re still within the old paradigm. Your incorporation foundation’s strength is marginal vs. your intention to be truly ${R_business_intent}. Your incorporation form has weakness that will eventually fail under the load of achieving your intention, or you will weaken your intent to match your incorporation foundations.\n`;
+      body += `<p>even though you’re incorporating in a new way that superbly solves many of the problems business causes, you’re still within the old paradigm. Your incorporation foundation’s strength is marginal vs. your intention to be truly ${R_business_intent}. Your incorporation form has weakness that will eventually fail under the load of achieving your intention, or you will weaken your intent to match your incorporation foundations.</p>`;
       if (Y_scored_level >= 4) {
-        body += "your organisation design is strong enough, but will likely be weakened over time by your incorporation; ";
+        body += "<p>your organisation design is strong enough, but will likely be weakened over time by your incorporation; </p>";
       } else if (Y_scored_level >= 2) {
-        body += "your organisation design foundation’s strength is marginal; ";
+        body += "<p>your organisation design foundation’s strength is marginal; </p>";
       } else {
-        body += "your organisation design foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations. ";
+        body += "<p>your organisation design foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations. </p>";
       }
       if (X_scored_level >= 4) {
-        body += "your human foundation is strong enough, but will likely be weakened over time by your incorporation. ";
+        body += "<p>your human foundation is strong enough, but will likely be weakened over time by your incorporation. </p>";
       } else if (X_scored_level >= 2) {
-        body += "your human foundation’s strength is marginal; ";
+        body += "<p>your human foundation’s strength is marginal; </p>";
       } else {
-        body += "your human foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations. ";
+        body += "<p>your human foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations. </p>";
       }
-      body += "Your intentions are sound, and you’re putting in your best efforts, but there are proven ways to do better. To find out where you can get your foundations even stronger, and reduce the risk of mission creep or your foundations breaking, buy the follow-on consulting session.\n";
+      body += "<p>Your intentions are sound, and you’re putting in your best efforts, but there are proven ways to do better. To find out where you can get your foundations even stronger, and reduce the risk of mission creep or your foundations breaking, buy the follow-on consulting session.</p>";
     } else {
-      body += "your incorporation foundation’s strength is inadequate, and has serious weakness that will eventually fail under the load of achieving your intention, or you will weaken your intent to match your incorporation foundations.\n";
+      body += "<p>your incorporation foundation’s strength is inadequate, and has serious weakness that will eventually fail under the load of achieving your intention, or you will weaken your intent to match your incorporation foundations.</p>";
       if (Y_scored_level >= 4) {
-        body += "your organisation design though is strong enough, but will be dragged down over time by your incorporation; ";
+        body += "<p>your organisation design though is strong enough, but will be dragged down over time by your incorporation; </p>";
       } else if (Y_scored_level >= 2) {
-        body += "your organisation design foundation’s strength is marginal; ";
+        body += "<p>your organisation design foundation’s strength is marginal; </p>";
       } else {
-        body += "your organisation design foundation’s strength is too weak and will break under the load. ";
+        body += "<p>your organisation design foundation’s strength is too weak and will break under the load. </p>";
       }
       if (X_scored_level >= 4) {
-        body += "your human foundation is strong enough, but likely be dragged down over time by your incorporation; ";
+        body += "<p>your human foundation is strong enough, but likely be dragged down over time by your incorporation; </p>";
       } else if (X_scored_level >= 2) {
-        body += "your human foundation’s strength is marginal; ";
+        body += "<p>your human foundation’s strength is marginal; </p>";
       } else {
-        body += "your human foundation’s strength is too weak and will break under the load. ";
+        body += "<p>your human foundation’s strength is too weak and will break under the load. </p>";
       }
-      body += "Your intentions are sound, and you’re probably getting exhausted trying yourself to carry the load your foundations are too weak for. There are proven ways to do better, with less stress for yourself! To find out where you can get your foundations even stronger, and reduce the risk of mission creep or your foundations breaking, buy the follow-on consulting session.\n";
+      body += "<p>Your intentions are sound, and you’re probably getting exhausted trying yourself to carry the load your foundations are too weak for. There are proven ways to do better, with less stress for yourself! To find out where you can get your foundations even stronger, and reduce the risk of mission creep or your foundations breaking, buy the follow-on consulting session.</p>";
     }
   } else if (healthyIntents.includes(R_business_intent)) {
     // ... logic for healthy intents
@@ -784,117 +784,113 @@ function generateEmail(analysis, response) {
     // ... logic for shareholder intents
   }
 
-  body += "\n";
-
   if (Z_self_assessment_level !== -1) {
     if (Z_scored_level === Z_self_assessment_level) {
-      body += "Your self-assessment of your level of incorporation and our initial automated evaluation are the same!\n";
+      body += "<p>Your self-assessment of your level of incorporation and our initial automated evaluation are the same!</p>";
     } else if (Z_scored_level > Z_self_assessment_level) {
-      body += "Your self-assessment of your level of incorporation is lower than our initial automated evaluation! Are you a little harsh on yourself at times?\n";
+      body += "<p>Your self-assessment of your level of incorporation is lower than our initial automated evaluation! Are you a little harsh on yourself at times?</p>";
     } else {
-      body += "Your self-assessment of your level of incorporation is higher than our initial automated evaluation! Are you at risk of being surprised by your foundations breaking when you most need them?\n";
+      body += "<p>Your self-assessment of your level of incorporation is higher than our initial automated evaluation! Are you at risk of being surprised by your foundations breaking when you most need them?</p>";
     }
   }
   if (Z_scored_level === 3 || Z_self_assessment_level === 3) {
-    body += "Note that there is a range of companies we class as level 3. This diagnostic is not intended to distinguish between them. All of them are significant improvements over the standard company or cooperative, but fall short of the level of agency needed to support the new economic paradigm we need.\n";
+    body += "<p>Note that there is a range of companies we class as level 3. This diagnostic is not intended to distinguish between them. All of them are significant improvements over the standard company or cooperative, but fall short of the level of agency needed to support the new economic paradigm we need.</p>";
   }
 
   if (Y_self_assessment_level !== -1) {
     if (Y_scored_level === Y_self_assessment_level) {
-      body += "Your self-assessment of your work / organisation design level and our initial automated evaluation are the same!\n";
+      body += "<p>Your self-assessment of your work / organisation design level and our initial automated evaluation are the same!</p>";
     } else if (Y_scored_level > Y_self_assessment_level) {
-      body += "Your self-assessment of your work / organisation design level is lower than our initial automated evaluation! Are you a little harsh on yourself at times?\n";
+      body += "<p>Your self-assessment of your work / organisation design level is lower than our initial automated evaluation! Are you a little harsh on yourself at times?</p>";
     } else {
-      body += "Your self-assessment of your work / organisation design level is higher than our initial automated evaluation! Are you at risk of being surprised by your work / organisation design foundations breaking when you most need them?\n";
+      body += "<p>Your self-assessment of your work / organisation design level is higher than our initial automated evaluation! Are you at risk of being surprised by your work / organisation design foundations breaking when you most need them?</p>";
     }
   }
 
   if (X_self_assessment_level !== -1) {
     if (X_scored_level === X_self_assessment_level) {
-      body += "Your self-assessment of your human foundation’s level and our initial automated evaluation are the same!\n";
+      body += "<p>Your self-assessment of your human foundation’s level and our initial automated evaluation are the same!</p>";
     } else if (X_scored_level > X_self_assessment_level) {
-      body += "Your self-assessment of your human foundation’s level is lower than our initial automated evaluation! Are you a little harsh on yourself at times?\n";
+      body += "<p>Your self-assessment of your human foundation’s level is lower than our initial automated evaluation! Are you a little harsh on yourself at times?</p>";
     } else {
-      body += "Your self-assessment of your human foundation’s level is higher than our initial automated evaluation! Are you at risk of being surprised by your human foundations breaking when you most need them?\n";
+      body += "<p>Your self-assessment of your human foundation’s level is higher than our initial automated evaluation! Are you at risk of being surprised by your human foundations breaking when you most need them?</p>";
     }
   }
 
-  body += "\n";
-
-  body += 'You can find more information about the incorporation dimension in my YouTube channel, especially in <a href="https://www.youtube.com/playlist?list=PL35xWnDyNa_97x7_I06ytop8Jg9PfGcDL">this playlist</a> for entrepreneurs.\n';
-  body += 'You can also take <a href="https://www.evolutesix.com/regenerative-foundations-online">this online course</a> and read about the three foundational dimensions in <a href="https://drive.google.com/file/d/1WB2nOdgdrcptWHKrd7jThnIUOtVqfNBV/view?usp=sharing">this extract</a> from my book Rebuild the Economy, Leadership, and You.\n\n';
+  body += '<p>You can find more information about the incorporation dimension in my YouTube channel, especially in <a href="https://www.youtube.com/playlist?list=PL35xWnDyNa_97x7_I06ytop8Jg9PfGcDL">this playlist</a> for entrepreneurs.</p>';
+  body += '<p>You can also take <a href="https://www.evolutesix.com/regenerative-foundations-online">this online course</a> and read about the three foundational dimensions in <a href="https://drive.google.com/file/d/1WB2nOdgdrcptWHKrd7jThnIUOtVqfNBV/view?usp=sharing">this extract</a> from my book Rebuild the Economy, Leadership, and You.</p>';
 
   const ergodicityQuestion = "How do your business operations reflect the relative impact of unpredictability (luck) vs. skill and effort on your business results? (Profit, valuation, impact, etc.)";
   const ergodicityResponse = response[ergodicityQuestion];
   if (ergodicityResponse === "Skill and effort are the primary drivers of business performance, business is a meritocracy. We only have robust ways of maximising the business outcomes of skill and effort.") {
-    body += "Regarding your approach to hedging against bad luck, and seizing the opportunities good luck brings, you’re leaving potential lying on the table, and are needlessly exposed to risk. You’re also likely to be mis-attributing outcomes of profit or loss to skills / effort being strong or weak respectively. So you may believe someone is good or no good, but they were just lucky or unlucky respectively. This is neither beneficial for you nor for your investors.\n";
+    body += "<p>Regarding your approach to hedging against bad luck, and seizing the opportunities good luck brings, you’re leaving potential lying on the table, and are needlessly exposed to risk. You’re also likely to be mis-attributing outcomes of profit or loss to skills / effort being strong or weak respectively. So you may believe someone is good or no good, but they were just lucky or unlucky respectively. This is neither beneficial for you nor for your investors.</p>";
   } else if (ergodicityResponse === "Both are important. We have robust ways of maximising the business outcomes of skill and effort, but little formal resource pooling with other companies and our investors to hedge against detrimental and for beneficial unpredictabilities.") {
-    body += "Regarding your approach to hedging against bad luck, and seizing the opportunities good luck brings, you have some understanding of the relationship between skill and effort on the one hand, and unpredictability on the other. But you only have strong foundations on the skills / effort side, not to maximise outcomes from unpredictability. So you’re leaving potential lying on the table, and are needlessly exposed to risk. You’re likely to be appropriately attributing outcomes of profit or loss to skills / effort vs. unpredictability (good or bad luck). But you could do much better with unpredictables! This improvement would be beneficial for you and for your investors.\n";
+    body += "<p>Regarding your approach to hedging against bad luck, and seizing the opportunities good luck brings, you have some understanding of the relationship between skill and effort on the one hand, and unpredictability on the other. But you only have strong foundations on the skills / effort side, not to maximise outcomes from unpredictability. So you’re leaving potential lying on the table, and are needlessly exposed to risk. You’re likely to be appropriately attributing outcomes of profit or loss to skills / effort vs. unpredictability (good or bad luck). But you could do much better with unpredictables! This improvement would be beneficial for you and for your investors.</p>";
   } else if (ergodicityResponse === "Both are important. We have robust ways of maximising the business outcomes of skill and effort, and some resources are pooled with other companies and investors to hedge against detrimental and for beneficial unpredictabilities.") {
-    body += "Regarding your approach to hedging against bad luck, and seizing the opportunities good luck brings, you have an understanding of the relationship between skill and effort on the one hand, and unpredictability on the other. You have good foundations on both sides. But you could do even better with unpredictables! This improvement would be beneficial for you and for your investors.\n";
+    body += "<p>Regarding your approach to hedging against bad luck, and seizing the opportunities good luck brings, you have an understanding of the relationship between skill and effort on the one hand, and unpredictability on the other. You have good foundations on both sides. But you could do even better with unpredictables! This improvement would be beneficial for you and for your investors.</p>";
   } else if (ergodicityResponse === "Both are important. We have robust ways of maximising the business outcomes of skill and effort, and robust pooling mechanisms including profit pooling within a diverse ecosystem of multiple companies to hedge against detrimental and for beneficial unpredictabilities.") {
-    body += "You seem to have an excellent understanding of the relationship between skills / effort and unpredictability, which you seem to have used to build solid foundations to maximise the outcomes from each. Of course, there may well be areas where you can do even better!\n";
+    body += "<p>You seem to have an excellent understanding of the relationship between skills / effort and unpredictability, which you seem to have used to build solid foundations to maximise the outcomes from each. Of course, there may well be areas where you can do even better!</p>";
   }
 
   const theoryXQuestion = "38. The human structures and processes are based on the belief about people's motivation";
   const theoryXResponse = response[theoryXQuestion];
   if (theoryXResponse === "people are inherently lazy and must be controlled, incentivised, and threatened") {
-    body += "You also most likely have significant upside potential for better results by strengthening the way your foundations increase people’s inner motivations. This is well-proven, especially in volatile times, to lead to faster, more effective responses to events. And so delivers better outcomes for you and your investors.\n";
+    body += "<p>You also most likely have significant upside potential for better results by strengthening the way your foundations increase people’s inner motivations. This is well-proven, especially in volatile times, to lead to faster, more effective responses to events. And so delivers better outcomes for you and your investors.</p>";
   } else if (theoryXResponse === "people are intrinsically self-motivated and creative") {
-    body += "You’ve grasped the power of tapping into intrinsic motivation! ";
+    body += "<p>You’ve grasped the power of tapping into intrinsic motivation! ";
     if (Z_scored_level >= 4 && Y_scored_level >= 4 && X_scored_level >= 4) {
-      body += "And you seem to have built the right foundations to maximise people’s (and teams’) agency to maximise their intrinsic motivation and turn it into excellent results! Well done! Would you say no to a better way?\n";
+      body += "And you seem to have built the right foundations to maximise people’s (and teams’) agency to maximise their intrinsic motivation and turn it into excellent results! Well done! Would you say no to a better way?</p>";
     } else if (Z_scored_level >= 1 && Y_scored_level >= 2 && X_scored_level >= 2) {
-      body += "And you seem to have built some foundations towards enabling people’s (and teams’) agency to maximise their intrinsic motivation and turn it into excellent results, but there are well-proven ways of building far more enabling foundations.\n";
+      body += "And you seem to have built some foundations towards enabling people’s (and teams’) agency to maximise their intrinsic motivation and turn it into excellent results, but there are well-proven ways of building far more enabling foundations.</p>";
     } else {
-      body += "But you seem to have built foundations that fall short of what you need to really enable people’s (and teams’) agency to maximise their intrinsic motivation and turn it into excellent results. There are well-proven ways of building far more enabling foundations.\n";
+      body += "But you seem to have built foundations that fall short of what you need to really enable people’s (and teams’) agency to maximise their intrinsic motivation and turn it into excellent results. There are well-proven ways of building far more enabling foundations.</p>";
     }
   }
 
   const growthMindsetQuestion = "The human structures and processes are based on the belief about people's skills";
   const growthMindsetResponse = response[growthMindsetQuestion];
   if (growthMindsetResponse === "you either are “good” at something or not - mostly people just cannot learn new things") {
-    body += "Since you seem to believe that people can’t develop very much, regardless of the support given to them, you’re likely going to carry higher costs and higher risks as your business scales. Also, in the face of our ever more volatile and unpredictable world, slower reaction times and weaker innovation. You would be well served by asking yourself what has led to your beliefs about people, and how confident you are that they are absolutely true, everywhere and always, for everyone.\n";
+    body += "<p>Since you seem to believe that people can’t develop very much, regardless of the support given to them, you’re likely going to carry higher costs and higher risks as your business scales. Also, in the face of our ever more volatile and unpredictable world, slower reaction times and weaker innovation. You would be well served by asking yourself what has led to your beliefs about people, and how confident you are that they are absolutely true, everywhere and always, for everyone.</p>";
   } else if (growthMindsetResponse === "you can learn pretty much anything - if you stick to ongoing training and have support from the organisation") {
-    body += "Your beliefs about people’s capacity to develop in response to challenges, given the right support, are powerful enablers for success! So long as you put in place both ways of recognising each person’s development edge (including your own!) and the scaffolding each person needs, your chances of success are better than most!\n";
+    body += "<p>Your beliefs about people’s capacity to develop in response to challenges, given the right support, are powerful enablers for success! So long as you put in place both ways of recognising each person’s development edge (including your own!) and the scaffolding each person needs, your chances of success are better than most!</p>";
   } else if (growthMindsetResponse === "you can learn new things easily by yourself") {
-    body += "Your beliefs about people’s capacity to develop in response to challenges are enablers for success. However, because you seem to expect them to do so without systemic support from the organisation you’re likely limiting development (yours as well) to the zone of self-supported development. To develop at one’s developmental edge requires both ways of recognising each person’s development edge (including your own!) and the scaffolding each person needs. Only if you do that will your chances of success be better than most!\n";
+    body += "<p>Your beliefs about people’s capacity to develop in response to challenges are enablers for success. However, because you seem to expect them to do so without systemic support from the organisation you’re likely limiting development (yours as well) to the zone of self-supported development. To develop at one’s developmental edge requires both ways of recognising each person’s development edge (including your own!) and the scaffolding each person needs. Only if you do that will your chances of success be better than most!</p>";
   }
 
   const challengesQuestion = "The human structures and processes are based on the belief about challenges";
   const challengesResponse = response[challengesQuestion];
   if (challengesResponse === "all challenges can be overcome with perseverance and learning/hiring new skills, buying new technology") {
-    body += "You seem to deal with challenges primarily through perseverance, trying harder, learning or hiring new skills, and buying new technology. This will lead to missed opportunities and additional risks as you scale, and when unpredictable challenges and opportunities arise. Because in these cases our identity, our beliefs about how the world works, are the primary limiting factors. For example, Kodak, Blackberry, and Blockbuster all failed in the face of disruption because their leadership identified with their business. And so could not change their business because they could not see the need to change themselves first. Don’t be another Kodak, Blackberry, or Blockbuster!\n";
+    body += "<p>You seem to deal with challenges primarily through perseverance, trying harder, learning or hiring new skills, and buying new technology. This will lead to missed opportunities and additional risks as you scale, and when unpredictable challenges and opportunities arise. Because in these cases our identity, our beliefs about how the world works, are the primary limiting factors. For example, Kodak, Blackberry, and Blockbuster all failed in the face of disruption because their leadership identified with their business. And so could not change their business because they could not see the need to change themselves first. Don’t be another Kodak, Blackberry, or Blockbuster!</p>";
   } else if (challengesResponse === "some challenges can only be overcome if we change ourselves") {
-    body += `Well done! You’ve recognised that some challenges require us to change our identity. To do so requires your work and human dimensions to enable sufficient agency, individually and collectively. Your work dimension scored ${Y_scored_level}, ${AGENCY_NAME[Y_scored_level]}. `;
+    body += `<p>Well done! You’ve recognised that some challenges require us to change our identity. To do so requires your work and human dimensions to enable sufficient agency, individually and collectively. Your work dimension scored ${Y_scored_level}, ${AGENCY_NAME[Y_scored_level]}. `;
     if (Y_scored_level >= 4) {
-      body += "This is likely good enough for your needs, and puts you in the top bracket globally!\n";
+      body += "This is likely good enough for your needs, and puts you in the top bracket globally!</p>";
     } else if (Y_scored_level >= 2) {
-      body += "This is better than most, but could still be improved!\n";
+      body += "This is better than most, but could still be improved!</p>";
     } else {
-      body += "This really ought to be improved as fast as you can!\n";
+      body += "This really ought to be improved as fast as you can!</p>";
     }
-    body += `Your human dimension your score is: ${X_scored_level} ${AGENCY_NAME[X_scored_level]}. `;
+    body += `<p>Your human dimension your score is: ${X_scored_level} ${AGENCY_NAME[X_scored_level]}. `;
     if (X_scored_level >= 4) {
-      body += "This is likely good enough for your needs, and puts you in the top bracket globally!\n";
+      body += "This is likely good enough for your needs, and puts you in the top bracket globally!</p>";
     } else if (X_scored_level >= 2) {
-      body += "This is better than most, but could still be improved!\n";
+      body += "This is better than most, but could still be improved!</p>";
     } else {
-      body += "This really ought to be improved as fast as you can!\n";
+      body += "This really ought to be improved as fast as you can!</p>";
     }
     if (X_scored_level < 4 || Y_scored_level < 4) {
-      body += "Improvement is especially important for the growing volatility and unpredictability we’re already experiencing, and that we expect to increase with time.\n";
+      body += "<p>Improvement is especially important for the growing volatility and unpredictability we’re already experiencing, and that we expect to increase with time.</p>";
     }
   }
 
-  body += `\n${R_first_name}, there’s a lot more you can get out of the data you’ve given us in a strategic dialogue. We’ve heard time and time again from other people in your ${analysis.R_role} role “I didn’t even know that that was possible”. If you’re sure that nothing of value can come from one initial consulting session with us, then we in Evolutesix wish you all success, and hope to read good news about you one day in the headlines! Otherwise <a href="https://www.evolutesix.com/legal-od-strong-enough">take our initial consulting session</a>.\n\n`;
+  body += `<p>${R_first_name}, there’s a lot more you can get out of the data you’ve given us in a strategic dialogue. We’ve heard time and time again from other people in your ${analysis.R_role} role “I didn’t even know that that was possible”. If you’re sure that nothing of value can come from one initial consulting session with us, then we in Evolutesix wish you all success, and hope to read good news about you one day in the headlines! Otherwise <a href="https://www.evolutesix.com/legal-od-strong-enough">take our initial consulting session</a>.</p>`;
 
-  body += "Thank you for your time filling in this assessment!\n";
+  body += "<p>Thank you for your time filling in this assessment!</p>";
   const feedbackQuestions = Object.keys(response).filter(q => q.startsWith("Feedback or comments"));
   if (feedbackQuestions.some(q => response[q])) {
-    body += "We appreciate the feedback you have already given us while filling in the form. We’d love to hear more from you, especially if you have any questions, or any additional feedback on the assessment itself or this email.\n";
+    body += "<p>We appreciate the feedback you have already given us while filling in the form. We’d love to hear more from you, especially if you have any questions, or any additional feedback on the assessment itself or this email.</p>";
   } else {
-    body += "We’d love to hear from you, especially if you have any questions, or any feedback on the assessment itself or this email.\n";
+    body += "<p>We’d love to hear from you, especially if you have any questions, or any feedback on the assessment itself or this email.</p>";
   }
 
   return { subject: "Your Company's Foundation Analysis", body };
