@@ -1002,3 +1002,7 @@ function generateIncorporationOnlyEmail() {
   body += "\nBest regards,\nYour Name";
   return { subject, body };
 }
+
+function sendEmail(email, recipient) {
+  MailApp.sendEmail(recipient, email.subject, email.body, { htmlBody: email.body });
+}
