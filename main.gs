@@ -60,11 +60,11 @@ function analyzeResponse(response) {
   const R_role = response["Please enter your role"];
   const R_business_intent = response["Your overarching business intent is (tick the most dominant one):"];
   const R_sector = response["What industry/sector are you operating in?"];
-  const R_exit_strategy = response["Your overarching business intent is (tick the most dominant one):"];
+  const R_exit_strategy = response["Your exit strategy is:"];
 
   // Flags
   const R_incorporated_flag = response["I'm answering these questions according to how the company"] === "is already incorporated";
-  const R_DAO_flag = response["Are you using a DAO?"] !== "No";
+  const R_DAO_flag = response["Are you using a DAO?"] !== "No.";
   const DAO_form = R_DAO_flag ? "DAO/Incorporation" : "incorporation";
 
   // Running totals
@@ -151,13 +151,13 @@ function processDimensionZ(response, Z_level_scores) {
       "An Employee Owned Trust or equivalent.": 1,
       "A single stakeholder cooperative.": 2,
       "A multistakeholder cooperative, where voting rights are equitably split across multiple classes of members, e.g. a Somerset Rules cooperative.": 3,
-      "A steward-owned company.": 4,
-      "A public benefit company.": 4,
-      "A perpetual purpose trust.": 4,
-      "A Community Interest Company.": 4,
+      "A steward-owned company.": 3,
+      "A public benefit company.": 3,
+      "A perpetual purpose trust.": 3,
+      "A Community Interest Company.": 3,
       "A FairShares company.": 4,
-      "A FairShares Commons company.": 4,
-      "A foundation / charity.": 4,
+      "A FairShares Commons company.": 5,
+      "A foundation / charity.": 3,
     };
     Z_self_assessment_level = zLevelMapping[zResponse] !== undefined ? zLevelMapping[zResponse] : -1;
   }
@@ -894,6 +894,36 @@ function generateEmail(analysis, response) {
   } else {
     body += "<p>We’d love to hear from you, especially if you have any questions, or any feedback on the assessment itself or this email.</p>";
   }
+
+  body += "<h2>Testing Information</h2>";
+  body += "<h3>Constants</h3>";
+  body += "<ul>";
+  body += `<li>R_first_name: ${analysis.R_first_name}</li>`;
+  body += `<li>R_last_name: ${analysis.R_last_name}</li>`;
+  body += `<li>R_company_name: ${analysis.R_company_name}</li>`;
+  body += `<li>R_role: ${analysis.R_role}</li>`;
+  body += `<li>R_business_intent: ${analysis.R_business_intent}</li>`;
+  body += `<li>R_sector: ${analysis.R_sector}</li>`;
+  body += `<li>R_exit_strategy: ${analysis.R_exit_strategy}</li>`;
+  body += `<li>R_incorporated_flag: ${analysis.R_incorporated_flag}</li>`;
+  body += `<li>R_DAO_flag: ${analysis.R_DAO_flag}</li>`;
+  body += `<li>DAO_form: ${analysis.DAO_form}</li>`;
+  body += "</ul>";
+
+  body += "<h3>Variables</h3>";
+  body += "<ul>";
+  body += `<li>Y_running_total: ${analysis.Y_running_total}</li>`;
+  body += `<li>X_running_total: ${analysis.X_running_total}</li>`;
+  body += `<li>Z_level_scores: ${analysis.Z_level_scores.join(", ")}</li>`;
+  body += `<li>Y_self_assessment_text: ${analysis.Y_self_assessment_text}</li>`;
+  body += `<li>Y_self_assessment_level: ${analysis.Y_self_assessment_level}</li>`;
+  body += `<li>Y_scored_level: ${analysis.Y_scored_level}</li>`;
+  body += `<li>X_self_assessment_text: ${analysis.X_self_assessment_text}</li>`;
+  body += `<li>X_self_assessment_level: ${analysis.X_self_assessment_level}</li>`;
+  body += `<li>X_scored_level: ${analysis.X_scored_level}</li>`;
+  body += `<li>Z_self_assessment_level: ${analysis.Z_self_assessment_level}</li>`;
+  body += `<li>Z_scored_level: ${Z_scored_level}</li>`;
+  body += "</ul>";
 
   return { subject: "Your Company's Foundation Analysis", body };
 }

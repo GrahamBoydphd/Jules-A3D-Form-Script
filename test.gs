@@ -33,7 +33,9 @@ function testAllScenarios() {
         { getItem: () => ({ getTitle: () => "What kind of organisation design do you have? Choose the one that most closely describes what is happening in practice, not what may be written down." }), getResponse: () => "Self-Governing: individuals energise roles with high independent accountability, including the ability to change the role definition without approval from above (albeit with consent from other roles impacted by the proposed change)." },
         { getItem: () => ({ getTitle: () => "There are systems in place that encourage and support the orientation of all members of the organization along the strategic imperatives." }), getResponse: () => "4" },
         { getItem: () => ({ getTitle: () => "What kind of human development and culture do you have? Choose the one that most closely describes what is happening in practice, not what may be written down." }), getResponse: () => "Development is systemic: the company has gone beyond common practice, skills and whole person development happens continuously and systemically as an integral part of work." },
-        { getItem: () => ({ getTitle: () => "X1: How is employee performance most often discussed or evaluated?" }), getResponse: () => "3" }
+        { getItem: () => ({ getTitle: () => "X1: How is employee performance most often discussed or evaluated?" }), getResponse: () => "3" },
+        { getItem: () => ({ getTitle: () => "Your exit strategy is:" }), getResponse: () => "Other", getOtherOptionResponse: () => "Custom Exit" },
+        { getItem: () => ({ getTitle: () => "Are you using a DAO?" }), getResponse: () => "No." }
       ],
       getRespondentEmail: () => "test3@example.com"
     }
