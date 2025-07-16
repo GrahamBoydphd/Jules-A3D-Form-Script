@@ -440,88 +440,93 @@ function onFormSubmit(e) {
     }
   }
 
-  emailBody += `\n<p>Given your business intention is ${R_business_intent} ,</p>\n`;
+  emailBody += `<p>Given your business intention is ${R_business_intent},</p>\n`;
 
   const regenerativeIntents = ["Regenerative", "Sustainable", "Circular", "Net Positive", "Impact", "Be an organisation healthy for staff (e.g. Teal)", "Serve the community", "Stay true to my purpose", "Maximise shareholder value", "Profitable exit for investors, founders, and key staff"];
   if (regenerativeIntents.includes(R_business_intent) && Z_scored_level === 5 && Y_scored_level === 5 && X_scored_level === 5) {
-    emailBody += "<p>you have, or are building, the strongest foundations around. Well done! If we’re not already in contact, we’d love to get to know you and your company better.</p>\n";
+    emailBody += "<ul><li>you have, or are building, the strongest foundations around. Well done! If we’re not already in contact, we’d love to get to know you and your company better.</li></ul>\n";
   } else if (regenerativeIntents.includes(R_business_intent) && Z_scored_level === 4 && Y_scored_level >= 4 && X_scored_level >= 4) {
-    emailBody += "<p>your " + DAO_form + " is almost strong enough; and your work / organisation design is strong enough; and your human foundation is strong enough. Well done! You’re likely building foundations way stronger than most! To find out where you can get even stronger, buy the follow-on consulting session.</p>\n";
+    emailBody += "<ul><li>your " + DAO_form + " is almost strong enough; and your work / organisation design is strong enough; and your human foundation is strong enough. Well done! You’re likely building foundations way stronger than most! To find out where you can get even stronger, buy the follow-on consulting session.</li></ul>\n";
   } else if (["Regenerative", "Sustainable", "Circular", "Net Positive", "Impact"].includes(R_business_intent)) {
+      emailBody += "<ul>";
       if (Z_scored_level === 3) {
-          emailBody += "<p>even though you’re incorporating in a new way that superbly solves many of the problems business causes, you’re still within the old paradigm. Your incorporation foundation’s strength is marginal vs. your intention to be truly " + R_business_intent + ". Your incorporation form has weakness that will eventually fail under the load of achieving your intention, or you will weaken your intent to match your incorporation foundations.</p>\n";
+          emailBody += "<li>even though you’re incorporating in a new way that superbly solves many of the problems business causes, you’re still within the old paradigm. Your incorporation foundation’s strength is marginal vs. your intention to be truly " + R_business_intent + ". Your incorporation form has weakness that will eventually fail under the load of achieving your intention, or you will weaken your intent to match your incorporation foundations.</li>\n";
       } else if (Z_scored_level <= 2) {
-          emailBody += "<p>your incorporation foundation’s strength is inadequate, and has serious weakness that will eventually fail under the load of achieving your intention, or you will weaken your intent to match your incorporation foundations.</p>\n";
+          emailBody += "<li>your incorporation foundation’s strength is inadequate, and has serious weakness that will eventually fail under the load of achieving your intention, or you will weaken your intent to match your incorporation foundations.</li>\n";
       }
       if (Y_scored_level >= 4) {
-          emailBody += "<p>your organisation design is strong enough, but will likely be weakened over time by your incorporation; ";
+          emailBody += "<li>your organisation design is strong enough, but will likely be weakened over time by your incorporation;</li>";
       } else if (Y_scored_level >= 2) {
-          emailBody += "<p>your organisation design foundation’s strength is marginal; ";
+          emailBody += "<li>your organisation design foundation’s strength is marginal;</li>";
       } else {
-          emailBody += "<p>your organisation design foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations.</p>\n";
+          emailBody += "<li>your organisation design foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations.</li>\n";
       }
       if (X_scored_level >= 4) {
-          emailBody += "<p>your human foundation is strong enough, but will likely be weakened over time by your incorporation. ";
+          emailBody += "<li>your human foundation is strong enough, but will likely be weakened over time by your incorporation.</li>";
       } else if (X_scored_level >= 2) {
-          emailBody += "<p>your human foundation’s strength is marginal; ";
+          emailBody += "<li>your human foundation’s strength is marginal;</li>";
       } else {
-          emailBody += "<p>your human foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations.</p>\n";
+          emailBody += "<li>your human foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations.</li>\n";
       }
-      emailBody += "<p>Your intentions are sound, and you’re putting in your best efforts, but there are proven ways to do better. To find out where you can get your foundations even stronger, and reduce the risk of mission creep or your foundations breaking, buy the follow-on consulting session.</p>\n";
+      emailBody += "<li>Your intentions are sound, and you’re putting in your best efforts, but there are proven ways to do better. To find out where you can get your foundations even stronger, and reduce the risk of mission creep or your foundations breaking, buy the follow-on consulting session.</li></ul>\n";
   } else if (["Be an organisation healthy for staff (e.g. Teal)", "Serve the community", "Stay true to my purpose"].includes(R_business_intent)) {
+      emailBody += "<ul>";
       if (Z_scored_level === 3) {
-          emailBody += "<p>even though you’re incorporating in a new way that superbly solves many of the problems business causes, and that may well be strong enough for you, you’re still within the old paradigm. Your incorporation foundation’s strength may still hamper your intention to be truly " + R_business_intent + ".</p>\n";
+          emailBody += "<li>even though you’re incorporating in a new way that superbly solves many of the problems business causes, and that may well be strong enough for you, you’re still within the old paradigm. Your incorporation foundation’s strength may still hamper your intention to be truly " + R_business_intent + ".</li>\n";
       } else if (Z_scored_level <= 2) {
-          emailBody += "<p>your incorporation foundation’s strength is inadequate, and has serious weakness that will eventually fail under the load of achieving your intention, or you will weaken your intent to match your incorporation foundations.</p>\n";
+          emailBody += "<li>your incorporation foundation’s strength is inadequate, and has serious weakness that will eventually fail under the load of achieving your intention, or you will weaken your intent to match your incorporation foundations.</li>\n";
       }
       if (Y_scored_level >= 4) {
-          emailBody += "<p>your organisation design is strong enough, but may be weakened over time by your incorporation; ";
+          emailBody += "<li>your organisation design is strong enough, but may be weakened over time by your incorporation;</li>";
       } else if (Y_scored_level >= 2) {
-          emailBody += "<p>your organisation design foundation’s strength is probably strong enough, though you’d definitely benefit by making it stronger; ";
+          emailBody += "<li>your organisation design foundation’s strength is probably strong enough, though you’d definitely benefit by making it stronger;</li>";
       } else {
-          emailBody += "<p>your organisation design foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations.</p>\n";
+          emailBody += "<li>your organisation design foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations.</li>\n";
       }
       if (X_scored_level >= 4) {
-          emailBody += "<p>your human foundation is strong enough; ";
+          emailBody += "<li>your human foundation is strong enough;</li>";
       } else if (X_scored_level >= 2) {
-          emailBody += "<p>your human foundation’s strength is probably strong enough, though you’d definitely benefit by making it stronger; ";
+          emailBody += "<li>your human foundation’s strength is probably strong enough, though you’d definitely benefit by making it stronger;</li>";
       } else {
-          emailBody += "<p>your human foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations.</p>\n";
+          emailBody += "<li>your human foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations.</li>\n";
       }
       if (Z_scored_level >= 3 && Y_scored_level >= 3 && X_scored_level >= 3) {
-          emailBody += "<p>Your intention to make the world a better place is admirable, and your foundations may well be strong enough for the load! To get a more thorough assessment, and to get a plan on how you can use proven ways to do better, with less stress for yourself, buy the follow-on consulting session.</p>\n";
+          emailBody += "<li>Your intention to make the world a better place is admirable, and your foundations may well be strong enough for the load! To get a more thorough assessment, and to get a plan on how you can use proven ways to do better, with less stress for yourself, buy the follow-on consulting session.</li>\n";
       } else {
-          emailBody += "<p>Your intention to make the world a better place is admirable, but your foundations may well break under the load! To get a more thorough assessment, and to get a plan on how you can use proven ways to do better, with less stress for yourself, buy the follow-on consulting session.</p>\n";
+          emailBody += "<li>Your intention to make the world a better place is admirable, but your foundations may well break under the load! To get a more thorough assessment, and to get a plan on how you can use proven ways to do better, with less stress for yourself, buy the follow-on consulting session.</li>\n";
       }
+      emailBody += "</ul>";
   } else if (["Maximise shareholder value", "Profitable exit for investors, founders, and key staff"].includes(R_business_intent)) {
+      emailBody += "<ul>";
       if (Z_scored_level === 3) {
-          emailBody += "<p>you’re incorporating in a new way that superbly solves many of the problems business causes. ";
+          emailBody += "<li>you’re incorporating in a new way that superbly solves many of the problems business causes.</li>";
       } else if (Z_scored_level === 2) {
-          emailBody += "<p>your incorporation foundation’s strength as a cooperative may not suit your intention, one of the alternatives may be better for you; ";
+          emailBody += "<li>your incorporation foundation’s strength as a cooperative may not suit your intention, one of the alternatives may be better for you;</li>";
       } else if (Z_scored_level === 1) {
-          emailBody += "<p>your incorporation foundation’s strength as an employee-owned trust may be fine for your intention, but one of the alternatives may be better for you; ";
+          emailBody += "<li>your incorporation foundation’s strength as an employee-owned trust may be fine for your intention, but one of the alternatives may be better for you;</li>";
       } else {
-          emailBody += "<p>your incorporation foundation’s strength may be strong enough for your intention over the short term, but it has weaknesses that may well break under the strain of the volatile business context of the near future; ";
+          emailBody += "<li>your incorporation foundation’s strength may be strong enough for your intention over the short term, but it has weaknesses that may well break under the strain of the volatile business context of the near future;</li>";
       }
       if (Y_scored_level >= 4) {
-          emailBody += "<p>your organisation design though is strong enough, but will be dragged down over time by your incorporation; ";
+          emailBody += "<li>your organisation design though is strong enough, but will be dragged down over time by your incorporation;</li>";
       } else if (Y_scored_level >= 2) {
-          emailBody += "<p>your organisation design foundation’s strength is marginal, and may be negatively impacted by your incorporation foundation; ";
+          emailBody += "<li>your organisation design foundation’s strength is marginal, and may be negatively impacted by your incorporation foundation;</li>";
       } else {
-          emailBody += "<p>your organisation design foundation’s strength is too weak and will break under the load. ";
+          emailBody += "<li>your organisation design foundation’s strength is too weak and will break under the load.</li>";
       }
       if (X_scored_level >= 4) {
-          emailBody += "<p>your human foundation is strong enough, but likely be dragged down over time by your incorporation; ";
+          emailBody += "<li>your human foundation is strong enough, but likely be dragged down over time by your incorporation;</li>";
       } else if (X_scored_level >= 2) {
-          emailBody += "<p>your human foundation’s strength is marginal; ";
+          emailBody += "<li>your human foundation’s strength is marginal;</li>";
       } else {
-          emailBody += "<p>your human foundation’s strength is too weak and will break under the load. ";
+          emailBody += "<li>your human foundation’s strength is too weak and will break under the load.</li>";
       }
       if (Z_scored_level >= 3 && Y_scored_level >= 3 && X_scored_level >= 3) {
-          emailBody += "<p>You seem to be in the paradox between a desire to build a future-fit company, and the old paradigm of investor primacy! To get a more thorough assessment, and to get a plan on how you can use proven ways to transcend and integrate your polarities, with less stress for yourself, buy the follow-on consulting session.</p>\n";
+          emailBody += "<li>You seem to be in the paradox between a desire to build a future-fit company, and the old paradigm of investor primacy! To get a more thorough assessment, and to get a plan on how you can use proven ways to transcend and integrate your polarities, with less stress for yourself, buy the follow-on consulting session.</li>\n";
       } else {
-          emailBody += "<p>To get a more thorough assessment, and to get a plan on how you can use proven ways to up your game, with less stress for yourself, buy the follow-on consulting session.</p>\n";
+          emailBody += "<li>To get a more thorough assessment, and to get a plan on how you can use proven ways to up your game, with less stress for yourself, buy the follow-on consulting session.</li>\n";
       }
+      emailBody += "</ul>";
   }
 
   emailBody += "\n\n";
