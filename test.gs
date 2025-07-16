@@ -2,7 +2,7 @@ function testOnFormSubmit() {
   // Mock form submission event object
   const mockEvent = {
     response: {
-      getRespondentEmail: () => "test@example.com",
+      getRespondentEmail: () => "graham@evolutesix.com",
       getItemResponses: () => [
         { getItem: () => ({ getTitle: () => "Please enter your first / given name" }), getResponse: () => "John" },
         { getItem: () => ({ getTitle: () => "Please enter your last / family name" }), getResponse: () => "Doe" },

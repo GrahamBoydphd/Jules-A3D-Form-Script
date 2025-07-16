@@ -3,8 +3,10 @@
  */
 
 function onFormSubmit(e) {
+  Logger.log("onFormSubmit started");
   // Get the form response
   const itemResponses = e.response.getItemResponses();
+  Logger.log("itemResponses count: " + itemResponses.length);
 
   // Define variables to hold the answers
   let R_first_name = "";
@@ -44,6 +46,7 @@ function onFormSubmit(e) {
         return itemResponses[i].getResponse();
       }
     }
+    Logger.log("Question not found: " + question);
     return null;
   }
 
@@ -71,10 +74,12 @@ function onFormSubmit(e) {
   if (onlySelfAssessmentResponse !== "Yes, I want to the detailed assessment of the incorporation dimension. After that I can choose to assess the work and human dimensions too. The incorporation assessment will take 5 to 10 minutes") {
     R_only_self_assessment_flag = true;
   }
+  Logger.log("R_only_self_assessment_flag: " + R_only_self_assessment_flag);
 
   // Dimension Z
   let zSelfAssessmentResponse = getResponseByQuestion("If already incorporated, the company's incorporation form is a (choose the closest legal form in your jurisdiction). If not yet incorporated, choose the one you currently intend to use");
   Z_self_assessment_text = zSelfAssessmentResponse;
+  Logger.log("zSelfAssessmentResponse: " + zSelfAssessmentResponse);
   switch (zSelfAssessmentResponse) {
     case "A private limited company": Z_self_assessment_level = 0; break;
     case "A public limited company": Z_self_assessment_level = 0; break;
@@ -90,6 +95,7 @@ function onFormSubmit(e) {
     case "A foundation / charity": Z_self_assessment_level = 3; break;
     default: Z_self_assessment_level = -1; break;
   }
+  Logger.log("Z_self_assessment_level: " + Z_self_assessment_level);
 
   let q1_z = getResponseByQuestion("Is buying shares all that’s needed to get voting rights? (Voting rights come automatically with financial investment.)");
   if (q1_z === "Yes") { z_level_scores[0] += 1; }
@@ -100,21 +106,21 @@ function onFormSubmit(e) {
   else { z_level_scores[5] += 10; }
 
   let q3_z = getResponseByQuestion("How are staff included in the financial benefits of shareholding, so that they have a share of dividends and any growth in the company's value. (Tick all that apply)");
-  if (q3_z.includes("Only if staff buy or sell shares; they're included because they have invested, not because they are staff; there's no difference")) { z_level_scores[0] += 1; }
-  if (q3_z.includes("Staff benefit from a reduced share price, employee stock ownership plan (ESOP) or similar")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; }
-  if (q3_z.includes("A percentage, but less than 50%, of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 1; }
-  if (q3_z.includes("Over 50%, but less than 100%, of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 2; z_level_scores[2] += 1; }
-  if (q3_z.includes("All of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 2; z_level_scores[2] += 2; }
-  if (q3_z.includes("Qualifies legally as an employee owned company, e.g. because staff shares are held in an employee ownership trust with at least 51% of the shares")) { z_level_scores[1] += 10; }
-  if (q3_z.includes("There is a robust protection (e.g. a special share class) protecting the staff wealth share rights")) { z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q3_z.includes("Staff are receive a fair share of profit and / or company value growth via a mechanism based on their work contribution, independent of their financial investment")) { z_level_scores[4] += 5; z_level_scores[5] += 5; }
+  if (q3_z && q3_z.includes("Only if staff buy or sell shares; they're included because they have invested, not because they are staff; there's no difference")) { z_level_scores[0] += 1; }
+  if (q3_z && q3_z.includes("Staff benefit from a reduced share price, employee stock ownership plan (ESOP) or similar")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; }
+  if (q3_z && q3_z.includes("A percentage, but less than 50%, of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 1; }
+  if (q3_z && q3_z.includes("Over 50%, but less than 100%, of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 2; z_level_scores[2] += 1; }
+  if (q3_z && q3_z.includes("All of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 2; z_level_scores[2] += 2; }
+  if (q3_z && q3_z.includes("Qualifies legally as an employee owned company, e.g. because staff shares are held in an employee ownership trust with at least 51% of the shares")) { z_level_scores[1] += 10; }
+  if (q3_z && q3_z.includes("There is a robust protection (e.g. a special share class) protecting the staff wealth share rights")) { z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
+  if (q3_z && q3_z.includes("Staff are receive a fair share of profit and / or company value growth via a mechanism based on their work contribution, independent of their financial investment")) { z_level_scores[4] += 5; z_level_scores[5] += 5; }
 
   let q4_z = getResponseByQuestion("How are staff included in the governance aspect of shareholding - the staff share of governance / voting rights");
-  if (q4_z.includes("Staff only get voting rights when they buy voting shares just as any investor does")) { z_level_scores[0] += 5; }
-  if (q4_z.includes("Between 10% and 50% of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q4_z.includes("Over 50% of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q4_z.includes("All (100%) of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[2] += 1; }
-  if (q4_z.includes("The company qualifies legally as an employee owned company, or there is some robust protection protecting the staff governance rights")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
+  if (q4_z && q4_z.includes("Staff only get voting rights when they buy voting shares just as any investor does")) { z_level_scores[0] += 5; }
+  if (q4_z && q4_z.includes("Between 10% and 50% of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
+  if (q4_z && q4_z.includes("Over 50% of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
+  if (q4_z && q4_z.includes("All (100%) of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[2] += 1; }
+  if (q4_z && q4_z.includes("The company qualifies legally as an employee owned company, or there is some robust protection protecting the staff governance rights")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
 
   let q5_z = getResponseByQuestion("Democratic Governance: your incorporation legally underpins the democratic governance by all its members (e.g. customers, workers) independent of how much was invested");
   if (q5_z === "Yes, and members have equal voting power (e.g. one member, one vote, no weighting)") { z_level_scores[2] += 1; z_level_scores[3] += 1; }
@@ -130,12 +136,12 @@ function onFormSubmit(e) {
   else { z_level_scores[0] += 10; }
 
   let q8_z = getResponseByQuestion("There are multiple classes of members / shareholders with distinct qualifying criteria, rights and obligations. If yes, tick all that apply. For example, you have classes for stewards and/or founders, staff, customers, suppliers, voting investors, non-voting investors. (Tick all that apply)");
-  if (q8_z.includes("No")) { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; }
-  if (q8_z.includes("Yes, there are different classes, with distinct qualifying criteria independent of financial investment for all but the (perhaps non-voting) investor shares")) { z_level_scores[0] -= 1; z_level_scores[1] += 1; z_level_scores[2] -= 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q8_z.includes("Yes, and voting power is fairly shared across all, weighted across the different classes so that no single class can dominate over the others")) { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q8_z.includes("Yes, and multiple classes have a fair share of any profit / operating surplus")) { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q8_z.includes("Yes, and each class has a fair share of any increase in the company value")) { z_level_scores[4] += 4; z_level_scores[5] += 4; }
-  if (q8_z.includes("Yes, and only the investor class shares are tradable, all other classes are non-tradable and withdrawn whenever the member ceases to satisfy the qualifying criteria for the class")) { z_level_scores[3] += 2; z_level_scores[4] += 5; z_level_scores[5] += 5; }
+  if (q8_z && q8_z.includes("No")) { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; }
+  if (q8_z && q8_z.includes("Yes, there are different classes, with distinct qualifying criteria independent of financial investment for all but the (perhaps non-voting) investor shares")) { z_level_scores[0] -= 1; z_level_scores[1] += 1; z_level_scores[2] -= 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
+  if (q8_z && q8_z.includes("Yes, and voting power is fairly shared across all, weighted across the different classes so that no single class can dominate over the others")) { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
+  if (q8_z && q8_z.includes("Yes, and multiple classes have a fair share of any profit / operating surplus")) { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
+  if (q8_z && q8_z.includes("Yes, and each class has a fair share of any increase in the company value")) { z_level_scores[4] += 4; z_level_scores[5] += 4; }
+  if (q8_z && q8_z.includes("Yes, and only the investor class shares are tradable, all other classes are non-tradable and withdrawn whenever the member ceases to satisfy the qualifying criteria for the class")) { z_level_scores[3] += 2; z_level_scores[4] += 5; z_level_scores[5] += 5; }
 
   let q9_z = getResponseByQuestion("Does the company have a purpose, beyond e.g. maximising total shareholder return; and this purpose is explicitly written into the articles of incorporation or equivalent legal document legally binding for both operating and shareholder decisions; and with a significant / super majority threshold to change");
   if (q9_z === "The company legally anchors itself in a purpose statement, written into the incorporation documentation and binding on governance and operations") { z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
@@ -143,13 +149,13 @@ function onFormSubmit(e) {
   else { z_level_scores[0] += 5; z_level_scores[1] += 1; z_level_scores[3] -= 1; z_level_scores[4] -= 1; z_level_scores[5] -= 5; }
 
   let q10_z = getResponseByQuestion("Stewardship rights, obligations, and role in governance (tick all that apply)");
-  if (q10_z.includes("No stewards exist in any voting role in the company")) { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[5] -= 10; }
-  if (q10_z.includes("The company has stewards, but they have less voting weight than the largest voting block, or do not have veto power")) { z_level_scores[0] -= 5; z_level_scores[3] += 1; z_level_scores[4] += 1; }
-  if (q10_z.includes("Stewards are required to vote according to legally binding principles of stewardship")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
-  if (q10_z.includes("Stewards represent nature as a whole in governance, and at least one has expertise in that")) { z_level_scores[5] += 1; }
-  if (q10_z.includes("Stewards represent future generations as a whole in governance, and at least one has expertise in that")) { z_level_scores[5] += 1; }
-  if (q10_z.includes("Stewards represent the essence, integrity, etc. of the company as an independent entity to any and all stakeholders, and at least one has expertise in that")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
-  if (q10_z.includes("Stewards have veto power if any shareholder proposal risks irrevocably breaking one of the principles of stewardship")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
+  if (q10_z && q10_z.includes("No stewards exist in any voting role in the company")) { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[5] -= 10; }
+  if (q10_z && q10_z.includes("The company has stewards, but they have less voting weight than the largest voting block, or do not have veto power")) { z_level_scores[0] -= 5; z_level_scores[3] += 1; z_level_scores[4] += 1; }
+  if (q10_z && q10_z.includes("Stewards are required to vote according to legally binding principles of stewardship")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
+  if (q10_z && q10_z.includes("Stewards represent nature as a whole in governance, and at least one has expertise in that")) { z_level_scores[5] += 1; }
+  if (q10_z && q10_z.includes("Stewards represent future generations as a whole in governance, and at least one has expertise in that")) { z_level_scores[5] += 1; }
+  if (q10_z && q10_z.includes("Stewards represent the essence, integrity, etc. of the company as an independent entity to any and all stakeholders, and at least one has expertise in that")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
+  if (q10_z && q10_z.includes("Stewards have veto power if any shareholder proposal risks irrevocably breaking one of the principles of stewardship")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
 
   let q11_z = getResponseByQuestion("How well does your company make explicit and express in practice that its legal personhood means that it is legally a free person, not property, not an ownable thing, and especially that it is not owned by the shareholders?");
   switch (q11_z) {
@@ -209,11 +215,15 @@ function onFormSubmit(e) {
   if (onlyIncorporationResponse !== "Yes, I want to assess all three dimensions of my company") {
     R_only_incorporation_flag = true;
   }
+  Logger.log("R_only_incorporation_flag: " + R_only_incorporation_flag);
 
   let Z_scored_level = z_level_scores.indexOf(Math.max(...z_level_scores));
+  Logger.log("z_level_scores: " + z_level_scores);
+  Logger.log("Z_scored_level: " + Z_scored_level);
 
   // Dimension Y
   Y_self_assessment_text_long = getResponseByQuestion("What kind of organisation design do you have? Choose the one that most closely describes what you see happening in practice, not what's just written but not practiced. If you're not familiar with some options, you likely don't have that");
+  Logger.log("Y_self_assessment_text_long: " + Y_self_assessment_text_long);
   switch (Y_self_assessment_text_long) {
     case "Hierarchy of roles with micro-management, each with a job description and title, senior roles closely manage the work of their direct reports; you rise in the hierarchy through promotion": Y_self_assessment_text = "Traditional hierarchy, significant micro-management"; Y_self_assessment_level = 0; break;
     case "Hierarchy of roles with delegation, each with a job description and title, senior roles define top level objectives and goals, then delegate accountability for how to deliver them to their direct reports; you rise in the hierarchy through promotion": Y_self_assessment_text = "Hierarchy, significant delegation"; Y_self_assessment_level = 1; break;
@@ -225,10 +235,10 @@ function onFormSubmit(e) {
   }
 
   let q1_y = getResponseByQuestion("There are systems in place that encourage and support the orientation of all members of the organization along the strategic imperatives");
-  if (q1_y) { Y_running_total += (parseInt(q1_y) - 3) * 5; }
+  if (q1_y) { Y_running_total += (parseInt(q1_y) - 3) * 5 || 0; }
 
   let q2_y = getResponseByQuestion("What is the relationship between managers and those below them with expertise?");
-  if (q2_y) { Y_running_total += (parseInt(q2_y) - 3) * 5; }
+  if (q2_y) { Y_running_total += (parseInt(q2_y) - 3) * 5 || 0; }
 
   let q3_y = getResponseByQuestion("Who sets goals and how to achieve them?");
   switch (q3_y) {
@@ -240,28 +250,28 @@ function onFormSubmit(e) {
   }
 
   let q4_y = getResponseByQuestion("Who has authority to define and change job / role descriptions including accountabilities?");
-  if (q4_y) { Y_running_total += (parseInt(q4_y) - 3) * 5; }
+  if (q4_y) { Y_running_total += (parseInt(q4_y) - 3) * 5 || 0; }
 
   let q5_y = getResponseByQuestion("Decisions broader than within one role's accountability are made beyond simple hierarchy and beyond simple majority vote (e.g., via a consent principle)");
-  if (q5_y) { Y_running_total += (parseInt(q5_y) - 3) * 5; }
+  if (q5_y) { Y_running_total += (parseInt(q5_y) - 3) * 5 || 0; }
 
   let q6_y = getResponseByQuestion("Systems are implemented that support the self-management of teams and roles");
-  if (q6_y) { Y_running_total += (parseInt(q6_y) - 3) * 5; }
+  if (q6_y) { Y_running_total += (parseInt(q6_y) - 3) * 5 || 0; }
 
   let q7_y = getResponseByQuestion("There are ways all members of the organization can  instigate change processes leading to modified or new objectives / goals / purposes for the organisation as a whole, e.g. when frontline staff recognise that the business context has changed, and hence the company ought to consider a new direction (with input and consent needed only from roles / jobs affected by the proposed change, but not necessarily \"management\")");
-  if (q7_y) { Y_running_total += (parseInt(q7_y) - 3) * 5; }
+  if (q7_y) { Y_running_total += (parseInt(q7_y) - 3) * 5 || 0; }
 
   let q8_y = getResponseByQuestion("Who decides on who joins or leaves a team?");
-  if (q8_y) { Y_running_total += (parseInt(q8_y) - 3) * 5; }
+  if (q8_y) { Y_running_total += (parseInt(q8_y) - 3) * 5 || 0; }
 
   let q9_y = getResponseByQuestion("What is the primary role of senior management / leaders?");
-  if (q9_y) { Y_running_total += (parseInt(q9_y) - 3) * 5; }
+  if (q9_y) { Y_running_total += (parseInt(q9_y) - 3) * 5 || 0; }
 
   let q10_y = getResponseByQuestion("What is the relative importance of the organisation’s survival vs. the purpose of the organisation?");
-  if (q10_y) { Y_running_total += (parseInt(q10_y) - 3) * 5; }
+  if (q10_y) { Y_running_total += (parseInt(q10_y) - 3) * 5 || 0; }
 
   let q11_y = getResponseByQuestion("External stakeholder interfaces are fluid and permeable – stakeholders are seen as part of the system, co-creative, co-directing, actively contributing to the organisation meeting the broad external needs and context");
-  if (q11_y) { Y_running_total += (parseInt(q11_y) - 3) * 5; }
+  if (q11_y) { Y_running_total += (parseInt(q11_y) - 3) * 5 || 0; }
 
   let Y_scored_level = 0;
   if (Y_running_total < -80) { Y_scored_level = 0; }
@@ -270,9 +280,12 @@ function onFormSubmit(e) {
   else if (Y_running_total >= 21 && Y_running_total < 70) { Y_scored_level = 3; }
   else if (Y_running_total >= 71 && Y_running_total < 100) { Y_scored_level = 4; }
   else if (Y_running_total >= 101) { Y_scored_level = 5; }
+  Logger.log("Y_running_total: " + Y_running_total);
+  Logger.log("Y_scored_level: " + Y_scored_level);
 
   // Dimension X
   X_self_assessment_text_long = getResponseByQuestion("What kind of human development and culture do you have? Choose the one that most closely describes what is happening in practice, not what may be written down");
+  Logger.log("X_self_assessment_text_long: " + X_self_assessment_text_long);
   switch (X_self_assessment_text_long) {
     case "It's all about making best use of the skills staff have, hiring when we need new skills, firing when we no longer need someone's skills, to deliver the immediate tasks ahead of us": X_self_assessment_text = "Short term gain"; X_self_assessment_level = 0; break;
     case "People are hired for the long term fit, so individual skills are regularly strengthened and new skills developed so that today's staff are fit for future tasks": X_self_assessment_text = "Strengths and skills"; X_self_assessment_level = 1; break;
@@ -283,7 +296,7 @@ function onFormSubmit(e) {
   }
 
   let q1_x = getResponseByQuestion("How is employee performance most often discussed or evaluated?");
-  if (q1_x) { X_running_total += (parseInt(q1_x) - 2) * 10; }
+  if (q1_x) { X_running_total += (parseInt(q1_x) - 2) * 10 || 0; }
 
   let q2_x = getResponseByQuestion("What happens when someone struggles to meet expectations?");
   if (q2_x) {
@@ -294,13 +307,13 @@ function onFormSubmit(e) {
   }
 
   let q3_x = getResponseByQuestion("What happens when someone exceeds expectations consistently?");
-  if (q3_x) { X_running_total += (parseInt(q3_x) - 2) * 10; }
+  if (q3_x) { X_running_total += (parseInt(q3_x) - 2) * 10 || 0; }
 
   let q4_x = getResponseByQuestion("How frequently do people receive feedback focused on growth?");
-  if (q4_x) { X_running_total += (parseInt(q4_x) - 2) * 10; }
+  if (q4_x) { X_running_total += (parseInt(q4_x) - 2) * 10 || 0; }
 
   let q5_x = getResponseByQuestion("What is the default response to employee mistakes?");
-  if (q5_x) { X_running_total += (parseInt(q5_x) - 2) * 10; }
+  if (q5_x) { X_running_total += (parseInt(q5_x) - 2) * 10 || 0; }
 
   let q6_x = getResponseByQuestion("What role does psychological safety play in team culture?");
   if (q6_x) {
@@ -311,10 +324,10 @@ function onFormSubmit(e) {
   }
 
   let q7_x = getResponseByQuestion("How visible is inner development (current stage and developmental edge) in meetings or strategy reviews?");
-  if (q7_x) { X_running_total += (parseInt(q7_x) - 2) * 10; }
+  if (q7_x) { X_running_total += (parseInt(q7_x) - 2) * 10 || 0; }
 
   let q8_x = getResponseByQuestion("How is success defined for employees?");
-  if (q8_x) { X_running_total += (parseInt(q8_x) - 2) * 10; }
+  if (q8_x) { X_running_total += (parseInt(q8_x) - 2) * 10 || 0; }
 
   let q9_x = getResponseByQuestion("How are development resources allocated?");
   if (q9_x) {
@@ -325,13 +338,13 @@ function onFormSubmit(e) {
   }
 
   let q10_x = getResponseByQuestion("What level of agency do people have over their development path (skills and inner development)?");
-  if (q10_x) { X_running_total += (parseInt(q10_x) - 3) * 5; }
+  if (q10_x) { X_running_total += (parseInt(q10_x) - 3) * 5 || 0; }
 
   let q11_x = getResponseByQuestion("How well are individual purposes and company purpose actively aligned in order to benefit both?");
-  if (q11_x) { X_running_total += (parseInt(q11_x) - 2) * 10; }
+  if (q11_x) { X_running_total += (parseInt(q11_x) - 2) * 10 || 0; }
 
   let q12_x = getResponseByQuestion("How is inner development woven into the company’s identity and operations?");
-  if (q12_x) { X_running_total += (parseInt(q12_x) - 3) * 5; }
+  if (q12_x) { X_running_total += (parseInt(q12_x) - 3) * 5 || 0; }
 
   let q13_x = getResponseByQuestion("How are people included in setting their personal development goals within the company?");
   if (q13_x) {
@@ -342,10 +355,10 @@ function onFormSubmit(e) {
   }
 
   let q14_x = getResponseByQuestion("How are power and decision-making influenced by people’s relational and emotional intelligence?");
-  if (q14_x) { X_running_total += (parseInt(q14_x) - 2) * 10; }
+  if (q14_x) { X_running_total += (parseInt(q14_x) - 2) * 10 || 0; }
 
   let q15_x = getResponseByQuestion("To what extent is there a common language and clear principles giving structure and clear communication for inner development?");
-  if (q15_x) { X_running_total += (parseInt(q15_x) - 3) * 5; }
+  if (q15_x) { X_running_total += (parseInt(q15_x) - 3) * 5 || 0; }
 
   let q16_x = getResponseByQuestion("How is conflict between peers or upward (from junior to senior roles) seen and treated in the organisation?");
   if (q16_x) {
@@ -356,10 +369,10 @@ function onFormSubmit(e) {
   }
 
   let q17_x = getResponseByQuestion("How strongly do you agree: the organisation's structures, processes, culture, leaders, and investors see inner development as an integral purpose of work and the company, equal to any financial metric?");
-  if (q17_x) { X_running_total += (parseInt(q17_x) - 3) * 5; }
+  if (q17_x) { X_running_total += (parseInt(q17_x) - 3) * 5 || 0; }
 
   let q18_x = getResponseByQuestion("How strongly do you agree: people are encouraged and supported to stay in a role only when they are learning something and being challenged?");
-  if (q18_x) { X_running_total += (parseInt(q18_x) - 3) * 5; }
+  if (q18_x) { X_running_total += (parseInt(q18_x) - 3) * 5 || 0; }
 
 
   let X_scored_level = 0;
@@ -369,6 +382,8 @@ function onFormSubmit(e) {
   else if (X_running_total >= 101 && X_running_total < 145) { X_scored_level = 3; }
   else if (X_running_total >= 146 && X_running_total < 170) { X_scored_level = 4; }
   else if (X_running_total >= 171) { X_scored_level = 5; }
+  Logger.log("X_running_total: " + X_running_total);
+  Logger.log("X_scored_level: " + X_scored_level);
 
   ergodicity_response = getResponseByQuestion("How do your business operations reflect the relative impact of unpredictability (luck) vs. skill and effort on your business results? (Profit, valuation, impact, etc.)");
   theory_x_y_response = getResponseByQuestion("The human structures and processes are based on the belief about people's motivation");
@@ -384,6 +399,7 @@ function onFormSubmit(e) {
       }
     }
   }
+  Logger.log("feedback_comments: " + feedback_comments.length);
 
   // Construct email
   const subject = `Health check of the foundations of ${R_company_name} prepared for ${R_first_name} ${R_last_name}`;
@@ -639,9 +655,13 @@ function onFormSubmit(e) {
 
   // Send email
   const recipient = e.response.getRespondentEmail();
+  Logger.log("recipient: " + recipient);
+  Logger.log("subject: " + subject);
+  Logger.log("emailBody length: " + emailBody.length);
   MailApp.sendEmail({
     to: recipient,
     subject: subject,
     htmlBody: emailBody
   });
+  Logger.log("Email sent to " + recipient);
 }
