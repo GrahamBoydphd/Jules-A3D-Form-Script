@@ -55,7 +55,7 @@ function onFormSubmit(e) {
   R_last_name = getResponseByQuestion("Please enter your last / family name");
   R_company_name = getResponseByQuestion("Your company's name");
   R_role = getResponseByQuestion("Please enter your role");
-  R_business_intent = getResponseByQuestion("Your overarching business intent is (tick the most dominant one)");
+  R_business_intent = getResponseByQuestion("Your overarching business intent is (tick the most dominant one; choose the one closest if none of the options is exactly right)");
   R_sector = getResponseByQuestion("What industry/sector are you operating in? (Choose the one closest to your centre)");
   R_exit_strategy = getResponseByQuestion("Your exit strategy is to:");
 
@@ -668,6 +668,11 @@ function onFormSubmit(e) {
   emailBody += `<p>Y_scored_level: ${Y_scored_level}</p>`;
   emailBody += `<p>X_scored_level: ${X_scored_level}</p>`;
   emailBody += `<p>R_only_incorporation_flag: ${R_only_incorporation_flag}</p>`;
+
+  emailBody += "<hr><h3>Questions:</h3>";
+  itemResponses.forEach(itemResponse => {
+    emailBody += `<p>[${itemResponse.getItem().getTitle()}]</p>`;
+  });
 
 
   // Send email

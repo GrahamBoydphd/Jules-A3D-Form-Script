@@ -8,7 +8,7 @@ function testOnFormSubmit() {
         { getItem: () => ({ getTitle: () => "Please enter your last / family name" }), getResponse: () => "Doe" },
         { getItem: () => ({ getTitle: () => "Your company's name" }), getResponse: () => "Test Corp" },
         { getItem: () => ({ getTitle: () => "Please enter your role" }), getResponse: () => "Tester" },
-        { getItem: () => ({ getTitle: () => "Your overarching business intent is (tick the most dominant one)" }), getResponse: () => "Regenerative" },
+        { getItem: () => ({ getTitle: () => "Your overarching business intent is (tick the most dominant one; choose the one closest if none of the options is exactly right)" }), getResponse: () => "Regenerative" },
         { getItem: () => ({ getTitle: () => "What industry/sector are you operating in? (Choose the one closest to your centre)" }), getResponse: () => "IT" },
         { getItem: () => ({ getTitle: () => "Your exit strategy is to:" }), getResponse: () => "None" },
         { getItem: () => ({ getTitle: () => "I'm answering these questions according to how the company" }), getResponse: () => "is already incorporated" },
