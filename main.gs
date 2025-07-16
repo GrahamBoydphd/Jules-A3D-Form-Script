@@ -446,7 +446,7 @@ function onFormSubmit(e) {
   if (regenerativeIntents.includes(R_business_intent) && Z_scored_level === 5 && Y_scored_level === 5 && X_scored_level === 5) {
     emailBody += "<ul><li>you have, or are building, the strongest foundations around. Well done! If we’re not already in contact, we’d love to get to know you and your company better.</li></ul>\n";
   } else if (regenerativeIntents.includes(R_business_intent) && Z_scored_level === 4 && Y_scored_level >= 4 && X_scored_level >= 4) {
-    emailBody += "<ul><li>your " + DAO_form + " is almost strong enough; and your work / organisation design is strong enough; and your human foundation is strong enough. Well done! You’re likely building foundations way stronger than most! To find out where you can get even stronger, buy the follow-on consulting session.</li></ul>\n";
+    emailBody += "<ul><li>your " + DAO_form + " is almost strong enough; and your work / organisation design is strong enough; and your human foundation is strong enough. Well done! You’re likely building foundations way stronger than most! You’ll find out more clearly where you can get your foundations even stronger in order to reduce the risk of mission creep or your foundations breaking when you sign up for the follow-on consulting session.</li></ul>\n";
   } else if (["Regenerative", "Sustainable", "Circular", "Net Positive", "Impact"].includes(R_business_intent)) {
       emailBody += "<ul>";
       if (Z_scored_level === 3) {
@@ -468,7 +468,7 @@ function onFormSubmit(e) {
       } else {
           emailBody += "<li>your human foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations.</li>\n";
       }
-      emailBody += "<li>Your intentions are sound, and you’re putting in your best efforts, but there are proven ways to do better. To find out where you can get your foundations even stronger, and reduce the risk of mission creep or your foundations breaking, buy the follow-on consulting session.</li></ul>\n";
+      emailBody += "</ul><p>Your intentions are sound, and you’re putting in your best efforts, but there are proven ways to do better. You’ll find out where you can get your foundations even stronger, and reduce the risk of mission creep or your foundations breaking when you sign up for the follow-on consulting session.</p>\n";
   } else if (["Be an organisation healthy for staff (e.g. Teal)", "Serve the community", "Stay true to my purpose"].includes(R_business_intent)) {
       emailBody += "<ul>";
       if (Z_scored_level === 3) {
@@ -491,9 +491,9 @@ function onFormSubmit(e) {
           emailBody += "<li>your human foundation’s strength is too weak and will break under the load, or you will weaken your intent to match your foundations.</li>\n";
       }
       if (Z_scored_level >= 3 && Y_scored_level >= 3 && X_scored_level >= 3) {
-          emailBody += "<li>Your intention to make the world a better place is admirable, and your foundations may well be strong enough for the load! To get a more thorough assessment, and to get a plan on how you can use proven ways to do better, with less stress for yourself, buy the follow-on consulting session.</li>\n";
+          emailBody += "<li>Your intention to make the world a better place is admirable, and your foundations may well be strong enough for the load! You’ll get a more thorough assessment, a plan on how you can use proven ways to do better, with less stress for yourself, when you sign up for the follow-on consulting session.</li>\n";
       } else {
-          emailBody += "<li>Your intention to make the world a better place is admirable, but your foundations may well break under the load! To get a more thorough assessment, and to get a plan on how you can use proven ways to do better, with less stress for yourself, buy the follow-on consulting session.</li>\n";
+          emailBody += "<li>Your intention to make the world a better place is admirable, but your foundations may well break under the load! You’ll get a more thorough assessment, a plan on how you can use proven ways to do better, with less stress for yourself, when you sign up for the follow-on consulting session.</li>\n";
       }
       emailBody += "</ul>";
   } else if (["Maximise shareholder value", "Profitable exit for investors, founders, and key staff"].includes(R_business_intent)) {
@@ -532,13 +532,15 @@ function onFormSubmit(e) {
   emailBody += "\n\n";
 
   if (Z_self_assessment_level !== -1) {
+    emailBody += "<ul>";
     if (Z_scored_level === Z_self_assessment_level) {
-      emailBody += "<p>Your self-assessment of your level of incorporation and our initial automated evaluation are the same!</p>\n";
+      emailBody += "<li>Your self-assessment of your level of incorporation and our initial automated evaluation are the same!</li>\n";
     } else if (Z_scored_level > Z_self_assessment_level) {
-      emailBody += "<p>Your self-assessment of your level of incorporation is lower than our initial automated evaluation! Are you a little harsh on yourself at times?</p>\n";
+      emailBody += "<li>Your self-assessment of your level of incorporation is lower than our initial automated evaluation! Are you a little harsh on yourself at times?</li>\n";
     } else {
-      emailBody += "<p>Your self-assessment of your level of incorporation is higher than our initial automated evaluation! Are you at risk of being surprised by your foundations breaking when you most need them?</p>\n";
+      emailBody += "<li>Your self-assessment of your level of incorporation is higher than our initial automated evaluation! Are you at risk of being surprised by your foundations breaking when you most need them?</li>\n";
     }
+    emailBody += "</ul>";
   }
 
   if (Z_scored_level === 3 || Z_self_assessment_level === 3) {
@@ -546,23 +548,27 @@ function onFormSubmit(e) {
   }
 
   if (Y_self_assessment_level !== -1) {
+    emailBody += "<ul>";
     if (Y_scored_level === Y_self_assessment_level) {
-      emailBody += "<p>Your self-assessment of your work / organisation design level and our initial automated evaluation are the same!</p>\n";
+      emailBody += "<li>Your self-assessment of your work / organisation design level and our initial automated evaluation are the same!</li>\n";
     } else if (Y_scored_level > Y_self_assessment_level) {
-      emailBody += "<p>Your self-assessment of your work / organisation design level is lower than our initial automated evaluation! Are you a little harsh on yourself at times?</p>\n";
+      emailBody += "<li>Your self-assessment of your work / organisation design level is lower than our initial automated evaluation! Are you a little harsh on yourself at times?</li>\n";
     } else {
-      emailBody += "<p>Your self-assessment of your work / organisation design level is higher than our initial automated evaluation! Are you at risk of being surprised by your work / organisation design foundations breaking when you most need them?</p>\n";
+      emailBody += "<li>Your self-assessment of your work / organisation design level is higher than our initial automated evaluation! Are you at risk of being surprised by your work / organisation design foundations breaking when you most need them?</li>\n";
     }
+    emailBody += "</ul>";
   }
 
   if (X_self_assessment_level !== -1) {
+    emailBody += "<ul>";
     if (X_scored_level === X_self_assessment_level) {
-      emailBody += "<p>Your self-assessment of your human foundation’s level and our initial automated evaluation are the same!</p>\n";
+      emailBody += "<li>Your self-assessment of your human foundation’s level and our initial automated evaluation are the same!</li>\n";
     } else if (X_scored_level > X_self_assessment_level) {
-      emailBody += "<p>Your self-assessment of your human foundation’s level is lower than our initial automated evaluation! Are you a little harsh on yourself at times?</p>\n";
+      emailBody += "<li>Your self-assessment of your human foundation’s level is lower than our initial automated evaluation! Are you a little harsh on yourself at times?</li>\n";
     } else {
-      emailBody += "<p>Your self-assessment of your human foundation’s level is higher than our initial automated evaluation! Are you at risk of being surprised by your human foundations breaking when you most need them?</p>\n";
+      emailBody += "<li>Your self-assessment of your human foundation’s level is higher than our initial automated evaluation! Are you at risk of being surprised by your human foundations breaking when you most need them?</li>\n";
     }
+    emailBody += "</ul>";
   }
 
   emailBody += "\n\n";
