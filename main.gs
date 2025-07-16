@@ -140,26 +140,33 @@ function processDimensionZ(response, Z_level_scores) {
   let Z_self_assessment_level = 0;
   let Z_self_assessment_text = "";
 
-  if (zResponse === "Other") {
+  if (zResponse === "A private limited company") {
+    Z_self_assessment_level = 0;
+  } else if (zResponse === "A public limited company") {
+    Z_self_assessment_level = 0;
+  } else if (zResponse === "An Employee Owned Trust or equivalent") {
+    Z_self_assessment_level = 1;
+  } else if (zResponse === "A single stakeholder cooperative") {
+    Z_self_assessment_level = 2;
+  } else if (zResponse === "A multistakeholder cooperative, where voting rights are equitably split across multiple classes of members, e.g. a Somerset Rules cooperative") {
+    Z_self_assessment_level = 3;
+  } else if (zResponse === "A steward-owned company") {
+    Z_self_assessment_level = 3;
+  } else if (zResponse === "A public benefit company") {
+    Z_self_assessment_level = 3;
+  } else if (zResponse === "A perpetual purpose trust") {
+    Z_self_assessment_level = 3;
+  } else if (zResponse === "A Community Interest Company") {
+    Z_self_assessment_level = 3;
+  } else if (zResponse === "A FairShares company") {
+    Z_self_assessment_level = 4;
+  } else if (zResponse === "A FairShares Commons company") {
+    Z_self_assessment_level = 5;
+  } else if (zResponse === "A foundation / charity") {
+    Z_self_assessment_level = 3;
+  } else if (zResponse === "Other:") {
     Z_self_assessment_text = response[zQuestion + " (Other)"];
     Z_self_assessment_level = -1;
-  } else {
-    // This is a simplified mapping. You may need to adjust the levels based on your specific needs.
-    const zLevelMapping = {
-      "A private limited company.": 0,
-      "A public limited company.": 0,
-      "An Employee Owned Trust or equivalent.": 1,
-      "A single stakeholder cooperative.": 2,
-      "A multistakeholder cooperative, where voting rights are equitably split across multiple classes of members, e.g. a Somerset Rules cooperative.": 3,
-      "A steward-owned company.": 3,
-      "A public benefit company.": 3,
-      "A perpetual purpose trust.": 3,
-      "A Community Interest Company.": 3,
-      "A FairShares company.": 4,
-      "A FairShares Commons company.": 5,
-      "A foundation / charity.": 3,
-    };
-    Z_self_assessment_level = zLevelMapping[zResponse] !== undefined ? zLevelMapping[zResponse] : -1;
   }
 
   // Voting rights question
