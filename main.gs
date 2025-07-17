@@ -233,7 +233,7 @@ function onFormSubmit(e) {
     case "Self-Managing, individuals have significant accountability for managing their own work, turning to line managers or similar when needed": Y_self_assessment_text = "Self-managing"; Y_self_assessment_level = 2; break;
     case "Self-Governing: individuals energise roles with high independent accountability, including the ability to change the role definition without approval from above (albeit with consent from other roles impacted by the proposed change)": Y_self_assessment_text = "Self-Governing"; Y_self_assessment_level = 3; break;
     case "Self-Directing: in addition to the above, individuals have significant autonomy in defining the objectives, goals, KPIs of their roles and areas of the business": Y_self_assessment_text = "Self-Directing"; Y_self_assessment_level = 4; break;
-    case "Autopoietic: in addition to the above, there are structures and processes in place enabling staff (rather than only investors) to recognise and turn to action when it's time for the organisation to cease to exist, to create spin-offs / offspring, to merge with another organisation": Y_self_assessment_text = "Autopoietic"; Y_self_assessment_level = 5; break;
+    case "Autopoietic: in addition to the above, there are structures and processes in place enabling staff  (rather than only investors) to recognise and turn to action when it's time for the organisation to cease to exist, to create spin-offs / offspring, to merge with another organisation": Y_self_assessment_text = "Autopoietic"; Y_self_assessment_level = 5; break;
   }
 
   let q1_y = getResponseByQuestion("There are systems in place that encourage and support the orientation of all members of the organization along the strategic imperatives");
@@ -316,11 +316,11 @@ function onFormSubmit(e) {
   }
 
   let Y_scored_level = 0;
-  if (Y_running_total < -80) { Y_scored_level = 0; }
-  else if (Y_running_total >= -79 && Y_running_total < -30) { Y_scored_level = 1; }
-  else if (Y_running_total >= -29 && Y_running_total < 20) { Y_scored_level = 2; }
-  else if (Y_running_total >= 21 && Y_running_total < 70) { Y_scored_level = 3; }
-  else if (Y_running_total >= 71 && Y_running_total < 100) { Y_scored_level = 4; }
+  if (Y_running_total <= -80) { Y_scored_level = 0; }
+  else if (Y_running_total >= -79 && Y_running_total <= -30) { Y_scored_level = 1; }
+  else if (Y_running_total >= -29 && Y_running_total <= 20) { Y_scored_level = 2; }
+  else if (Y_running_total >= 21 && Y_running_total <= 70) { Y_scored_level = 3; }
+  else if (Y_running_total >= 71 && Y_running_total <= 100) { Y_scored_level = 4; }
   else if (Y_running_total >= 101) { Y_scored_level = 5; }
   Logger.log("Y_running_total: " + Y_running_total);
   Logger.log("Y_scored_level: " + Y_scored_level);
@@ -338,70 +338,52 @@ function onFormSubmit(e) {
   }
 
   let q1_x = getResponseByQuestion("How is employee performance most often discussed or evaluated?");
-  if (q1_x) {
-    const points = (parseInt(q1_x) - 2) * 10 || 0;
-    X_running_total += points;
-    Logger.log(`Action: Added ${points} to X_running_total`);
-  }
+  if (q1_x === "Based on task completion and compliance") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q1_x === "Based on skill development progress") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q1_x === "Based on personal growth, learning, and evolving potential") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q2_x = getResponseByQuestion("What happens when someone struggles to meet expectations?");
-  if (q2_x) {
-    if (q2_x === "1") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
-    else if (q2_x === "2") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
-    else if (q2_x === "3") { X_running_total += 5; Logger.log("Action: Added 5 to X_running_total"); }
-    else if (q2_x === "4") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
-  }
+  if (q2_x === "Their replacement is considered: people either fit the job or don't fit the job, training is a waste") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q2_x === "They are offered skills training and support to grow toward meeting the role’s needs") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q2_x === "They are offered both inner developmental (e.g. identity, cognitive development) as well as skills training and support to grow toward meeting the role’s needs") { X_running_total += 5; Logger.log("Action: Added 5 to X_running_total"); }
+  else if (q2_x === "In addition to both inner development and skills training, their role scope is changed to match their inner developmental stage / capacity") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q3_x = getResponseByQuestion("What happens when someone exceeds expectations consistently?");
-  if (q3_x) {
-    const points = (parseInt(q3_x) - 2) * 10 || 0;
-    X_running_total += points;
-    Logger.log(`Action: Added ${points} to X_running_total`);
-  }
+  if (q3_x === "They're kept in their role for as long as possible") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q3_x === "They can move to a new role, but only if they take the initiative and apply for another role internally") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q3_x === "Their role scope / portfolio of multiple roles is continuously changed to match their performance, skills, and current developmental capacity (maturity, cognitive, etc.)") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q4_x = getResponseByQuestion("How frequently do people receive feedback focused on growth?");
-  if (q4_x) {
-    const points = (parseInt(q4_x) - 2) * 10 || 0;
-    X_running_total += points;
-    Logger.log(`Action: Added ${points} to X_running_total`);
-  }
+  if (q4_x === "Rarely, mostly only when there’s a problem") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q4_x === "Periodically, with focus on skills") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q4_x === "Regularly, with co-created goals for both skills and inner development") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q5_x = getResponseByQuestion("What is the default response to employee mistakes?");
-  if (q5_x) {
-    const points = (parseInt(q5_x) - 2) * 10 || 0;
-    X_running_total += points;
-    Logger.log(`Action: Added ${points} to X_running_total`);
-  }
+  if (q5_x === "Criticism, punishment, or marginalisation") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q5_x === "Management feedback, followed by skills coaching") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q5_x === "Multi-directional feedback with shared reflection on both skills and inner developmental aspects") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q6_x = getResponseByQuestion("What role does psychological safety play in team culture?");
-  if (q6_x) {
-    if (q6_x === "1") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
-    else if (q6_x === "2") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
-    else if (q6_x === "3") { X_running_total += 5; Logger.log("Action: Added 5 to X_running_total"); }
-    else if (q6_x === "4") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
-  }
+  if (q6_x === "Not a topic of concern, purely up to the individual") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q6_x === "Recognised as important and supported by peers and management") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q6_x === "Actively supported by common practices across the entire organisation, where all, from the most senior to junior, can share vulnerabilities") { X_running_total += 5; Logger.log("Action: Added 5 to X_running_total"); }
+  else if (q6_x === "Actively cultivated as foundational, psychological safety is completely systemic, not dependent on being protected by powerful individuals") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q7_x = getResponseByQuestion("How visible is inner development (current stage and developmental edge) in meetings or strategy reviews?");
-  if (q7_x) {
-    const points = (parseInt(q7_x) - 2) * 10 || 0;
-    X_running_total += points;
-    Logger.log(`Action: Added ${points} to X_running_total`);
-  }
+  if (q7_x === "Not visible, not used in role allocation") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q7_x === "People experience psychological safety to show their state and stage, to show vulnerability") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q7_x === "Beyond being safe to show, inner development is prioritised") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q8_x = getResponseByQuestion("How is success defined for employees?");
-  if (q8_x) {
-    const points = (parseInt(q8_x) - 2) * 10 || 0;
-    X_running_total += points;
-    Logger.log(`Action: Added ${points} to X_running_total`);
-  }
+  if (q8_x === "Efficient task completion") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q8_x === "Efficient task completion and improvement in skills to drive performance") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q8_x === "Efficient task completion and improvement in skill performance and self-awareness, collaboration, and continuous growth") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q9_x = getResponseByQuestion("How are development resources allocated?");
-  if (q9_x) {
-    if (q9_x === "1") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
-    else if (q9_x === "2") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
-    else if (q9_x === "3") { X_running_total += 5; Logger.log("Action: Added 5 to X_running_total"); }
-    else if (q9_x === "4") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
-  }
+  if (q9_x === "Minimal or only for top performers") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q9_x === "Reasonably accessible to all if the individual asks") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q9_x === "Generous and expected for everyone, enabled by common practices that support people getting what they need to progress at their developmental edge") { X_running_total += 5; Logger.log("Action: Added 5 to X_running_total"); }
+  else if (q9_x === "Generous and expected for everyone, beyond merely common practices, robust systems are in place to support people getting what they need to progress at their developmental edge") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q10_x = getResponseByQuestion("What level of agency do people have over their development path (skills and inner development)?");
   if (q10_x) {
@@ -411,11 +393,9 @@ function onFormSubmit(e) {
   }
 
   let q11_x = getResponseByQuestion("How well are individual purposes and company purpose actively aligned in order to benefit both?");
-  if (q11_x) {
-    const points = (parseInt(q11_x) - 2) * 10 || 0;
-    X_running_total += points;
-    Logger.log(`Action: Added ${points} to X_running_total`);
-  }
+  if (q11_x === "Not considered") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q11_x === "Sometimes explored in performance reviews") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q11_x === "Actively integrated through role design and coaching") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q12_x = getResponseByQuestion("How is inner development woven into the company’s identity and operations?");
   if (q12_x) {
@@ -425,19 +405,15 @@ function onFormSubmit(e) {
   }
 
   let q13_x = getResponseByQuestion("How are people included in setting their personal development goals within the company?");
-  if (q13_x) {
-    if (q13_x === "1") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
-    else if (q13_x === "2") { X_running_total -= 5; Logger.log("Action: Subtracted 5 from X_running_total"); }
-    else if (q13_x === "3") { X_running_total += 5; Logger.log("Action: Added 5 to X_running_total"); }
-    else if (q13_x === "4") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
-  }
+  if (q13_x === "They’re told what skills they need based on business needs") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q13_x === "They’re told what skills and inner development they need based on business needs") { X_running_total -= 5; Logger.log("Action: Subtracted 5 from X_running_total"); }
+  else if (q13_x === "They co-set both skills and inner development goals during annual performance reviews") { X_running_total += 5; Logger.log("Action: Added 5 to X_running_total"); }
+  else if (q13_x === "They are encouraged to regularly reflect on their purpose, growth edges, and evolving role fits across both skills and inner development, with ongoing support to develop and reconfigure as needed") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q14_x = getResponseByQuestion("How are power and decision-making influenced by people’s relational and emotional intelligence?");
-  if (q14_x) {
-    const points = (parseInt(q14_x) - 2) * 10 || 0;
-    X_running_total += points;
-    Logger.log(`Action: Added ${points} to X_running_total`);
-  }
+  if (q14_x === "Socio-emotional skills don’t really factor in, what matters is results and authority") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q14_x === "We value emotional intelligence but it's rarely used to inform decisions") { X_running_total += 0; Logger.log("Action: Added 0 to X_running_total"); }
+  else if (q14_x === "Emotional intelligence and relational trust are core leadership criteria and inform how power and accountability are distributed and developed") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q15_x = getResponseByQuestion("To what extent is there a common language and clear principles giving structure and clear communication for inner development?");
   if (q15_x) {
@@ -447,12 +423,10 @@ function onFormSubmit(e) {
   }
 
   let q16_x = getResponseByQuestion("How is conflict between peers or upward (from junior to senior roles) seen and treated in the organisation?");
-  if (q16_x) {
-    if (q16_x === "1") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
-    else if (q16_x === "2") { X_running_total -= 5; Logger.log("Action: Subtracted 5 from X_running_total"); }
-    else if (q16_x === "3") { X_running_total += 5; Logger.log("Action: Added 5 to X_running_total"); }
-    else if (q16_x === "4") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
-  }
+  if (q16_x === "Conflicts are seen as a problem, are suppressed actively, or passively via the culture") { X_running_total -= 10; Logger.log("Action: Subtracted 10 from X_running_total"); }
+  else if (q16_x === "These conflicts need to be managed or coached away") { X_running_total -= 5; Logger.log("Action: Subtracted 5 from X_running_total"); }
+  else if (q16_x === "Conflicts, when they emerge naturally, are seen as a source of development - there is a clear process to learn from them") { X_running_total += 5; Logger.log("Action: Added 5 to X_running_total"); }
+  else if (q16_x === "People give each other the right to trigger conflict in structured, agreed ways designed to support their inner development") { X_running_total += 10; Logger.log("Action: Added 10 to X_running_total"); }
 
   let q17_x = getResponseByQuestion("How strongly do you agree: the organisation's structures, processes, culture, leaders, and investors see inner development as an integral purpose of work and the company, equal to any financial metric?");
   if (q17_x) {
