@@ -445,8 +445,14 @@ function onFormSubmit(e) {
   const regenerativeIntents = ["Regenerative", "Sustainable", "Circular", "Net Positive", "Impact", "Be an organisation healthy for staff (e.g. Teal)", "Serve the community", "Stay true to my purpose", "Maximise shareholder value", "Profitable exit for investors, founders, and key staff"];
   if (regenerativeIntents.includes(R_business_intent) && Z_scored_level === 5 && Y_scored_level === 5 && X_scored_level === 5) {
     emailBody += "<ul><li>you have, or are building, the strongest foundations around. Well done! If we’re not already in contact, we’d love to get to know you and your company better.</li></ul>\n";
-  } else if (regenerativeIntents.includes(R_business_intent) && Z_scored_level === 4 && Y_scored_level >= 4 && X_scored_level >= 4) {
-    emailBody += "<ul><li>your " + DAO_form + " is almost strong enough; and your work / organisation design is strong enough; and your human foundation is strong enough. Well done! You’re likely building foundations way stronger than most! You’ll find out more clearly where you can get your foundations even stronger in order to reduce the risk of mission creep or your foundations breaking when you sign up for the follow-on consulting session.</li></ul>\n";
+  } else if (regenerativeIntents.includes(R_business_intent) && (Z_scored_level === 4 || Z_scored_level === 5) && Y_scored_level >= 4 && X_scored_level >= 4) {
+    let z_strength = "";
+    if (Z_scored_level === 5) {
+      z_strength = "may well be strong enough";
+    } else {
+      z_strength = "is almost strong enough";
+    }
+    emailBody += "<ul><li>your " + DAO_form + " " + z_strength + "; and your work / organisation design is strong enough; and your human foundation is strong enough. Well done! You’re likely building foundations way stronger than most! You’ll find out more clearly where you can get your foundations even stronger in order to reduce the risk of mission creep or your foundations breaking when you sign up for the follow-on consulting session.</li></ul>\n";
   } else if (["Regenerative", "Sustainable", "Circular", "Net Positive", "Impact"].includes(R_business_intent)) {
       emailBody += "<ul>";
       if (Z_scored_level === 3) {
