@@ -100,117 +100,123 @@ function onFormSubmit(e) {
   Logger.log("Z_self_assessment_level: " + Z_self_assessment_level);
 
   let q1_z = getResponseByQuestion("Is buying shares all that’s needed to get voting rights? (Voting rights come automatically with financial investment.)");
-  if (q1_z === "Yes") { z_level_scores[0] += 1; }
-  else { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
+  if (q1_z === "Yes") { z_level_scores[0] += 1; Logger.log("Action: Added 1 to z_level_scores[0]"); }
+  else { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 1-5"); }
 
   let q2_z = getResponseByQuestion("Are shareholders (e.g.: investors, founders, stewards, customers, staff etc. according to the company shareholder structure) regarded as the owners of the company?");
-  if (q2_z === "Yes") { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; }
-  else { z_level_scores[5] += 10; }
+  if (q2_z === "Yes") { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; Logger.log("Action: Added 1 to z_level_scores 0-4"); }
+  else { z_level_scores[5] += 10; Logger.log("Action: Added 10 to z_level_scores[5]"); }
 
   let q3_z = getResponseByQuestion("How are staff (i.e., employees) included in the financial benefits of shareholding, so that they have a share of dividends and any growth in the company's value. (Tick all that apply)");
-  if (q3_z && q3_z.includes("Only if staff buy or sell shares; they're included because they have invested, not because they are staff; there's no difference")) { z_level_scores[0] += 1; }
-  if (q3_z && q3_z.includes("Staff benefit from a reduced share price, employee stock ownership plan (ESOP) or similar")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; }
-  if (q3_z && q3_z.includes("A percentage, but less than 50%, of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 1; }
-  if (q3_z && q3_z.includes("Over 50%, but less than 100%, of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 2; z_level_scores[2] += 1; }
-  if (q3_z && q3_z.includes("All of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 2; z_level_scores[2] += 2; }
-  if (q3_z && q3_z.includes("Qualifies legally as an employee owned company, e.g. because staff shares are held in an employee ownership trust with at least 51% of the shares")) { z_level_scores[1] += 10; }
-  if (q3_z && q3_z.includes("There is a robust protection (e.g. a special share class) protecting the staff wealth share rights")) { z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q3_z && q3_z.includes("Staff are receive a fair share of profit and / or company value growth via a mechanism based on their work contribution, independent of their financial investment")) { z_level_scores[4] += 5; z_level_scores[5] += 5; }
+  if (q3_z && q3_z.includes("Only if staff buy or sell shares; they're included because they have invested, not because they are staff; there's no difference")) { z_level_scores[0] += 1; Logger.log("Action: Added 1 to z_level_scores[0]"); }
+  if (q3_z && q3_z.includes("Staff benefit from a reduced share price, employee stock ownership plan (ESOP) or similar")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; Logger.log("Action: Added 1 to z_level_scores 1-3"); }
+  if (q3_z && q3_z.includes("A percentage, but less than 50%, of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 1; Logger.log("Action: Added 1 to z_level_scores[1]"); }
+  if (q3_z && q3_z.includes("Over 50%, but less than 100%, of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 2; z_level_scores[2] += 1; Logger.log("Action: Added 2 to z_level_scores[1] and 1 to z_level_scores[2]"); }
+  if (q3_z && q3_z.includes("All of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 2; z_level_scores[2] += 2; Logger.log("Action: Added 2 to z_level_scores[1] and 2 to z_level_scores[2]"); }
+  if (q3_z && q3_z.includes("Qualifies legally as an employee owned company, e.g. because staff shares are held in an employee ownership trust with at least 51% of the shares")) { z_level_scores[1] += 10; Logger.log("Action: Added 10 to z_level_scores[1]"); }
+  if (q3_z && q3_z.includes("There is a robust protection (e.g. a special share class) protecting the staff wealth share rights")) { z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 2-5"); }
+  if (q3_z && q3_z.includes("Staff are receive a fair share of profit and / or company value growth via a mechanism based on their work contribution, independent of their financial investment")) { z_level_scores[4] += 5; z_level_scores[5] += 5; Logger.log("Action: Added 5 to z_level_scores 4-5"); }
 
   let q4_z = getResponseByQuestion("How are staff (i.e., employees) included in the governance aspect of shareholding -- the staff share of governance / voting rights");
-  if (q4_z && q4_z.includes("Staff only get voting rights when they buy voting shares just as any investor does")) { z_level_scores[0] += 5; }
-  if (q4_z && q4_z.includes("Between 10% and 50% of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q4_z && q4_z.includes("Over 50% of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q4_z && q4_z.includes("All (100%) of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[2] += 1; }
-  if (q4_z && q4_z.includes("The company qualifies legally as an employee owned company, or there is some robust protection protecting the staff governance rights")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
+  if (q4_z && q4_z.includes("Staff only get voting rights when they buy voting shares just as any investor does")) { z_level_scores[0] += 5; Logger.log("Action: Added 5 to z_level_scores[0]"); }
+  if (q4_z && q4_z.includes("Between 10% and 50% of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 1,3,4,5"); }
+  if (q4_z && q4_z.includes("Over 50% of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 1-5"); }
+  if (q4_z && q4_z.includes("All (100%) of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[2] += 1; Logger.log("Action: Added 1 to z_level_scores 1-2"); }
+  if (q4_z && q4_z.includes("The company qualifies legally as an employee owned company, or there is some robust protection protecting the staff governance rights")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 1-5"); }
 
   let q5_z = getResponseByQuestion("Democratic Governance: your incorporation legally underpins the democratic governance by all its members (e.g. customers, workers) independent of how much was invested");
-  if (q5_z === "Yes, and members have equal voting power (e.g. one member, one vote, no weighting)") { z_level_scores[2] += 1; z_level_scores[3] += 1; }
-  else if (q5_z === "Yes, and members have unequal voting rights (e.g. one member, one vote but weighted in different stakeholder blocks)") { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  else { z_level_scores[0] += 1; z_level_scores[1] += 1; }
+  if (q5_z === "Yes, and members have equal voting power (e.g. one member, one vote, no weighting)") { z_level_scores[2] += 1; z_level_scores[3] += 1; Logger.log("Action: Added 1 to z_level_scores 2-3"); }
+  else if (q5_z === "Yes, and members have unequal voting rights (e.g. one member, one vote but weighted in different stakeholder blocks)") { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 3-5"); }
+  else { z_level_scores[0] += 1; z_level_scores[1] += 1; Logger.log("Action: Added 1 to z_level_scores 0-1"); }
 
   let q6_z = getResponseByQuestion("Autonomy and Independence: your incorporation legally underpins it as an autonomous organisation governed by its members (e.g. workers, customers, community) to best enable it to fulfill its purpose. They are encouraged / expected to govern as stewards / in loco parentis on its behalf");
-  if (q6_z === "Yes") { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  else { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] -= 1; z_level_scores[4] -= 1; z_level_scores[5] -= 10; }
+  if (q6_z === "Yes") { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 3-5"); }
+  else { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] -= 1; z_level_scores[4] -= 1; z_level_scores[5] -= 10; Logger.log("Action: Modified z_level_scores 0-5"); }
 
   let q7_z = getResponseByQuestion("There are qualifying criteria (beyond simply buying a share) that members (shareholders) of the company must satisfy to become members");
-  if (q7_z === "Yes") { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  else { z_level_scores[0] += 10; }
+  if (q7_z === "Yes") { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 1-5"); }
+  else { z_level_scores[0] += 10; Logger.log("Action: Added 10 to z_level_scores[0]"); }
 
   let q8_z = getResponseByQuestion("There are multiple classes of members / shareholders with distinct qualifying criteria, rights and obligations. If yes, tick all that apply. For example, you have classes for stewards and/or founders, staff, customers, suppliers, voting investors, non-voting investors. (Tick all that apply)");
-  if (q8_z && q8_z.includes("No")) { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; }
-  if (q8_z && q8_z.includes("Yes, there are different classes, with distinct qualifying criteria independent of financial investment for all but the (perhaps non-voting) investor shares")) { z_level_scores[0] -= 1; z_level_scores[1] += 1; z_level_scores[2] -= 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q8_z && q8_z.includes("Yes, and voting power is fairly shared across all, weighted across the different classes so that no single class can dominate over the others")) { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q8_z && q8_z.includes("Yes, and multiple classes have a fair share of any profit / operating surplus")) { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  if (q8_z && q8_z.includes("Yes, and each class has a fair share of any increase in the company value")) { z_level_scores[4] += 4; z_level_scores[5] += 4; }
-  if (q8_z && q8_z.includes("Yes, and only the investor class shares are tradable, all other classes are non-tradable and withdrawn whenever the member ceases to satisfy the qualifying criteria for the class")) { z_level_scores[3] += 2; z_level_scores[4] += 5; z_level_scores[5] += 5; }
+  if (q8_z && q8_z.includes("No")) { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; Logger.log("Action: Added 1 to z_level_scores 0-2"); }
+  if (q8_z && q8_z.includes("Yes, there are different classes, with distinct qualifying criteria independent of financial investment for all but the (perhaps non-voting) investor shares")) { z_level_scores[0] -= 1; z_level_scores[1] += 1; z_level_scores[2] -= 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Modified z_level_scores 0-5"); }
+  if (q8_z && q8_z.includes("Yes, and voting power is fairly shared across all, weighted across the different classes so that no single class can dominate over the others")) { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 3-5"); }
+  if (q8_z && q8_z.includes("Yes, and multiple classes have a fair share of any profit / operating surplus")) { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 3-5"); }
+  if (q8_z && q8_z.includes("Yes, and each class has a fair share of any increase in the company value")) { z_level_scores[4] += 4; z_level_scores[5] += 4; Logger.log("Action: Added 4 to z_level_scores 4-5"); }
+  if (q8_z && q8_z.includes("Yes, and only the investor class shares are tradable, all other classes are non-tradable and withdrawn whenever the member ceases to satisfy the qualifying criteria for the class")) { z_level_scores[3] += 2; z_level_scores[4] += 5; z_level_scores[5] += 5; Logger.log("Action: Added 2 to z_level_scores[3] and 5 to z_level_scores 4-5"); }
 
   let q9_z = getResponseByQuestion("Does the company have a purpose, beyond e.g. maximising total shareholder return; and this purpose is explicitly written into the articles of incorporation or equivalent legal document legally binding for both operating and shareholder decisions; and with a significant / super majority threshold to change");
-  if (q9_z === "The company legally anchors itself in a purpose statement, written into the incorporation documentation and binding on governance and operations") { z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  else if (q9_z === "The company legally anchors itself even deeper than purpose, in a driver statement, the external context and need, from which the purpose is visibly derived") { z_level_scores[5] += 5; }
-  else { z_level_scores[0] += 5; z_level_scores[1] += 1; z_level_scores[3] -= 1; z_level_scores[4] -= 1; z_level_scores[5] -= 5; }
+  if (q9_z === "The company legally anchors itself in a purpose statement, written into the incorporation documentation and binding on governance and operations") { z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 2-5"); }
+  else if (q9_z === "The company legally anchors itself even deeper than purpose, in a driver statement, the external context and need, from which the purpose is visibly derived") { z_level_scores[5] += 5; Logger.log("Action: Added 5 to z_level_scores[5]"); }
+  else { z_level_scores[0] += 5; z_level_scores[1] += 1; z_level_scores[3] -= 1; z_level_scores[4] -= 1; z_level_scores[5] -= 5; Logger.log("Action: Modified z_level_scores 0,1,3,4,5"); }
 
   let q10_z = getResponseByQuestion("Stewardship rights, obligations, and role in governance (tick all that apply)");
-  if (q10_z && q10_z.includes("No stewards exist in any voting role in the company")) { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[5] -= 10; }
-  if (q10_z && q10_z.includes("The company has stewards, but they have less voting weight than the largest voting block, or do not have veto power")) { z_level_scores[0] -= 5; z_level_scores[3] += 1; z_level_scores[4] += 1; }
-  if (q10_z && q10_z.includes("Stewards are required to vote according to legally binding principles of stewardship")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
-  if (q10_z && q10_z.includes("Stewards represent nature as a whole in governance, and at least one has expertise in that")) { z_level_scores[5] += 1; }
-  if (q10_z && q10_z.includes("Stewards represent future generations as a whole in governance, and at least one has expertise in that")) { z_level_scores[5] += 1; }
-  if (q10_z && q10_z.includes("Stewards represent the essence, integrity, etc. of the company as an independent entity to any and all stakeholders, and at least one has expertise in that")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
-  if (q10_z && q10_z.includes("Stewards have veto power if any shareholder proposal risks irrevocably breaking one of the principles of stewardship")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
+  if (q10_z && q10_z.includes("No stewards exist in any voting role in the company")) { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[5] -= 10; Logger.log("Action: Modified z_level_scores 0,1,2,5"); }
+  if (q10_z && q10_z.includes("The company has stewards, but they have less voting weight than the largest voting block, or do not have veto power")) { z_level_scores[0] -= 5; z_level_scores[3] += 1; z_level_scores[4] += 1; Logger.log("Action: Modified z_level_scores 0,3,4"); }
+  if (q10_z && q10_z.includes("Stewards are required to vote according to legally binding principles of stewardship")) { z_level_scores[3] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 3,5"); }
+  if (q10_z && q10_z.includes("Stewards represent nature as a whole in governance, and at least one has expertise in that")) { z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores[5]"); }
+  if (q10_z && q10_z.includes("Stewards represent future generations as a whole in governance, and at least one has expertise in that")) { z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores[5]"); }
+  if (q10_z && q10_z.includes("Stewards represent the essence, integrity, etc. of the company as an independent entity to any and all stakeholders, and at least one has expertise in that")) { z_level_scores[3] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 3,5"); }
+  if (q10_z && q10_z.includes("Stewards have veto power if any shareholder proposal risks irrevocably breaking one of the principles of stewardship")) { z_level_scores[3] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 3,5"); }
 
   let q11_z = getResponseByQuestion("How well does your company make explicit, and express in practice, that its legal personhood means that it is legally a free person, not an ownable thing, and especially that it is not owned by the shareholders?");
   switch (q11_z) {
-    case "1": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[5] -= 5; break;
-    case "2": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[5] -= 3; break;
-    case "3": z_level_scores[5] -= 1; break;
-    case "4": z_level_scores[0] -= 5; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; break;
-    case "5": z_level_scores[0] -= 5; z_level_scores[1] -= 1; z_level_scores[4] += 1; z_level_scores[5] += 5; break;
+    case "1": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[5] -= 5; Logger.log("Action: Modified z_level_scores 0-3,5"); break;
+    case "2": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[5] -= 3; Logger.log("Action: Modified z_level_scores 0-3,5"); break;
+    case "3": z_level_scores[5] -= 1; Logger.log("Action: Subtracted 1 from z_level_scores[5]"); break;
+    case "4": z_level_scores[0] -= 5; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Modified z_level_scores 0,3,4,5"); break;
+    case "5": z_level_scores[0] -= 5; z_level_scores[1] -= 1; z_level_scores[4] += 1; z_level_scores[5] += 5; Logger.log("Action: Modified z_level_scores 0,1,4,5"); break;
+    default: Logger.log("Action: No case matched for question 11z");
   }
 
   let q12_z = getResponseByQuestion("Do the company statutes and governance prevent the company from being bought or sold even if the investors; or the staff / customers in a cooperative; or some other subset of stakeholders decides to?");
-  if (q12_z === "Yes, there are mechanisms to prevent the company being sold") { z_level_scores[0] -= 5; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  else { z_level_scores[0] += 5; z_level_scores[1] += 1; }
+  if (q12_z === "Yes, there are mechanisms to prevent the company being sold") { z_level_scores[0] -= 5; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Modified z_level_scores 0,2,3,4,5"); }
+  else { z_level_scores[0] += 5; z_level_scores[1] += 1; Logger.log("Action: Added 5 to z_level_scores[0] and 1 to z_level_scores[1]"); }
 
   let q13_z = getResponseByQuestion("Multicapital governance: is each capital (e.g. the six capitals defined by the Integrated Reporting Framework) that the company directly depends on or impacts (beyond negligible or tangential impact) represented in governance by stakeholders and / or stewards, with the power and the mandate to hold the company to account for outcomes, and an equitable share of power?");
-  if (q13_z === "Yes, multiple capitals are represented in governance with a fair share of power") { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  else if (q13_z === "No") { z_level_scores[4] -= 5; z_level_scores[5] -= 5; }
+  if (q13_z === "Yes, multiple capitals are represented in governance with a fair share of power") { z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 3-5"); }
+  else if (q13_z === "No") { z_level_scores[4] -= 5; z_level_scores[5] -= 5; Logger.log("Action: Subtracted 5 from z_level_scores 4-5"); }
+  else { Logger.log("Action: No case matched for question 13z"); }
 
   let q14_z = getResponseByQuestion("Multicapital reward: is each capital (e.g. the six capitals defined by the Integrated Reporting Framework) that is invested entitled to receive a fair share of any financial growth (e.g. a fair share of dividends and capital growth)? Perhaps via representing stakeholders, and where these have the power and the mandate to hold the company to account for maintaining a fair share?");
-  if (q14_z === "Profit: Yes, all get a fair share of profit generated") { z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  else if (q14_z === "Company value: Yes, all get a fair share of gain in the company value") { z_level_scores[4] += 1; z_level_scores[5] += 1; }
-  else if (q14_z === "Both: Yes, all get a fair share of both profit / surplus and gain in the company value") { z_level_scores[4] += 5; z_level_scores[5] += 5; }
-  else if (q14_z === "No") { z_level_scores[4] -= 5; z_level_scores[5] -= 5; }
+  if (q14_z === "Profit: Yes, all get a fair share of profit generated") { z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 4-5"); }
+  else if (q14_z === "Company value: Yes, all get a fair share of gain in the company value") { z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 4-5"); }
+  else if (q14_z === "Both: Yes, all get a fair share of both profit / surplus and gain in the company value") { z_level_scores[4] += 5; z_level_scores[5] += 5; Logger.log("Action: Added 5 to z_level_scores 4-5"); }
+  else if (q14_z === "No") { z_level_scores[4] -= 5; z_level_scores[5] -= 5; Logger.log("Action: Subtracted 5 from z_level_scores 4-5"); }
+  else { Logger.log("Action: No case matched for question 14z"); }
 
   let q15_z = getResponseByQuestion("Does the company regularly, on an ongoing basis, for perpetuity, (e.g. annually) rebalance shareholding | equity | tokens to reflect contributions / investments of non-financial capitals (e.g. time, intellectual, relationship, etc.) by staff and / or other stakeholders -- especially unremunerated staff / freelancers / stakeholders");
-  if (q15_z === "Yes") { z_level_scores[4] += 5; z_level_scores[5] += 5; }
-  else { z_level_scores[4] -= 5; z_level_scores[5] -= 5; }
+  if (q15_z === "Yes") { z_level_scores[4] += 5; z_level_scores[5] += 5; Logger.log("Action: Added 5 to z_level_scores 4-5"); }
+  else { z_level_scores[4] -= 5; z_level_scores[5] -= 5; Logger.log("Action: Subtracted 5 from z_level_scores 4-5"); }
 
   let q16_z = getResponseByQuestion("How well do the company's articles of incorporation and operating structures and structured interactions enable tangible cooperation with other companies, even those with competing businesses?");
   switch (q16_z) {
-    case "1": z_level_scores[0] += 1; z_level_scores[1] += 1; break;
-    case "2": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; break;
-    case "3": z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; break;
-    case "4": z_level_scores[4] += 1; z_level_scores[5] += 1; break;
-    case "5": z_level_scores[4] += 2; z_level_scores[5] += 2; break;
+    case "1": z_level_scores[0] += 1; z_level_scores[1] += 1; Logger.log("Action: Added 1 to z_level_scores 0-1"); break;
+    case "2": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; Logger.log("Action: Added 1 to z_level_scores 0-3"); break;
+    case "3": z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; Logger.log("Action: Added 1 to z_level_scores 2-4"); break;
+    case "4": z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 4-5"); break;
+    case "5": z_level_scores[4] += 2; z_level_scores[5] += 2; Logger.log("Action: Added 2 to z_level_scores 4-5"); break;
+    default: Logger.log("Action: No case matched for question 16z");
   }
 
   let q17_z = getResponseByQuestion("How effectively is the company seen as, and incorporated to enable it to function as, a living being -- i.e., a collective living system with collective intelligence, culture (collective beliefs) composed of human beings as the individual cells?");
   switch (q17_z) {
-    case "1": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[4] -= 1; z_level_scores[5] -= 1; break;
-    case "2": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[4] -= 1; z_level_scores[5] -= 1; break;
-    case "3": z_level_scores[2] += 1; z_level_scores[3] += 1; break;
-    case "4": z_level_scores[4] += 1; z_level_scores[5] += 1; break;
-    case "5": z_level_scores[3] -= 1; z_level_scores[4] += 1; z_level_scores[5] += 1; break;
+    case "1": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[4] -= 1; z_level_scores[5] -= 1; Logger.log("Action: Modified z_level_scores 0,1,4,5"); break;
+    case "2": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[4] -= 1; z_level_scores[5] -= 1; Logger.log("Action: Modified z_level_scores 0-2,4,5"); break;
+    case "3": z_level_scores[2] += 1; z_level_scores[3] += 1; Logger.log("Action: Added 1 to z_level_scores 2-3"); break;
+    case "4": z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 4-5"); break;
+    case "5": z_level_scores[3] -= 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Modified z_level_scores 3-5"); break;
+    default: Logger.log("Action: No case matched for question 17z");
   }
 
   let q18_z = getResponseByQuestion("How explicitly clear is it in the company's structures and governance that the purpose of financial capital is to serve life?");
   switch (q18_z) {
-    case "1": z_level_scores[0] += 2; break;
-    case "2": z_level_scores[1] += 1; break;
-    case "3": z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; break;
-    case "4": z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; break;
-    case "5": z_level_scores[4] += 1; z_level_scores[5] += 1; break;
+    case "1": z_level_scores[0] += 2; Logger.log("Action: Added 2 to z_level_scores[0]"); break;
+    case "2": z_level_scores[1] += 1; Logger.log("Action: Added 1 to z_level_scores[1]"); break;
+    case "3": z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; Logger.log("Action: Added 1 to z_level_scores 1-3"); break;
+    case "4": z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 2-5"); break;
+    case "5": z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 4-5"); break;
+    default: Logger.log("Action: No case matched for question 18z");
   }
 
   let onlyIncorporationResponse = getResponseByQuestion("Do you want to also assess how fit for purpose your work and human structures and interactions are? If you want to end here, and only assess your incorporation, choose no");
@@ -454,9 +460,13 @@ function onFormSubmit(e) {
   Logger.log("X_scored_level: " + X_scored_level);
 
   ergodicity_response = getResponseByQuestion("How do your business operations reflect the relative impact of unpredictability (luck) vs. skill and effort on your business results? (Profit, valuation, impact, etc.)");
+  if (!ergodicity_response) Logger.log("Action: No response for ergodicity question");
   theory_x_y_response = getResponseByQuestion("The human structures and processes are based on the belief about people's motivation");
+  if (!theory_x_y_response) Logger.log("Action: No response for theory x/y question");
   growth_mindset_response = getResponseByQuestion("The human structures and processes are based on the belief about people's skills");
+  if (!growth_mindset_response) Logger.log("Action: No response for growth mindset question");
   technical_vs_adaptive_response = getResponseByQuestion("The human structures and processes are based on the belief about challenges");
+  if (!technical_vs_adaptive_response) Logger.log("Action: No response for technical vs adaptive question");
 
   // Collect feedback
   for (let i = 0; i < itemResponses.length; i++) {
