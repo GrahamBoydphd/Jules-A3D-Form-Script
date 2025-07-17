@@ -43,10 +43,12 @@ function onFormSubmit(e) {
   function getResponseByQuestion(question) {
     for (let i = 0; i < itemResponses.length; i++) {
       if (itemResponses[i].getItem().getTitle() === question) {
-        return itemResponses[i].getResponse();
+        const response = itemResponses[i].getResponse();
+        Logger.log(`Question: "${question}" | Response: "${response}"`);
+        return response;
       }
     }
-    Logger.log("Question not found: " + question);
+    Logger.log(`Question not found: "${question}"`);
     return null;
   }
 
