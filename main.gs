@@ -105,7 +105,7 @@ function onFormSubmit(e) {
   if (q2_z === "Yes") { z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; }
   else { z_level_scores[5] += 10; }
 
-  let q3_z = getResponseByQuestion("How are staff included in the financial benefits of shareholding, so that they have a share of dividends and any growth in the company's value. (Tick all that apply)");
+  let q3_z = getResponseByQuestion("How are staff (i.e., employees) included in the financial benefits of shareholding, so that they have a share of dividends and any growth in the company's value. (Tick all that apply)");
   if (q3_z && q3_z.includes("Only if staff buy or sell shares; they're included because they have invested, not because they are staff; there's no difference")) { z_level_scores[0] += 1; }
   if (q3_z && q3_z.includes("Staff benefit from a reduced share price, employee stock ownership plan (ESOP) or similar")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; }
   if (q3_z && q3_z.includes("A percentage, but less than 50%, of the shares are reserved for, and can only be owned by staff. (i.e., staff can only sell them to other staff members)")) { z_level_scores[1] += 1; }
@@ -115,7 +115,7 @@ function onFormSubmit(e) {
   if (q3_z && q3_z.includes("There is a robust protection (e.g. a special share class) protecting the staff wealth share rights")) { z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
   if (q3_z && q3_z.includes("Staff are receive a fair share of profit and / or company value growth via a mechanism based on their work contribution, independent of their financial investment")) { z_level_scores[4] += 5; z_level_scores[5] += 5; }
 
-  let q4_z = getResponseByQuestion("How are staff included in the governance aspect of shareholding - the staff share of governance / voting rights");
+  let q4_z = getResponseByQuestion("How are staff (i.e., employees) included in the governance aspect of shareholding -- the staff share of governance / voting rights");
   if (q4_z && q4_z.includes("Staff only get voting rights when they buy voting shares just as any investor does")) { z_level_scores[0] += 5; }
   if (q4_z && q4_z.includes("Between 10% and 50% of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
   if (q4_z && q4_z.includes("Over 50% of the voting rights are reserved for staff, can only be exercised by staff, and cannot be sold to non-staff")) { z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; z_level_scores[5] += 1; }
@@ -157,7 +157,7 @@ function onFormSubmit(e) {
   if (q10_z && q10_z.includes("Stewards represent the essence, integrity, etc. of the company as an independent entity to any and all stakeholders, and at least one has expertise in that")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
   if (q10_z && q10_z.includes("Stewards have veto power if any shareholder proposal risks irrevocably breaking one of the principles of stewardship")) { z_level_scores[3] += 1; z_level_scores[5] += 1; }
 
-  let q11_z = getResponseByQuestion("How well does your company make explicit and express in practice that its legal personhood means that it is legally a free person, not property, not an ownable thing, and especially that it is not owned by the shareholders?");
+  let q11_z = getResponseByQuestion("How well does your company make explicit, and express in practice, that its legal personhood means that it is legally a free person, not an ownable thing, and especially that it is not owned by the shareholders?");
   switch (q11_z) {
     case "1": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[5] -= 5; break;
     case "2": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[5] -= 3; break;
@@ -180,7 +180,7 @@ function onFormSubmit(e) {
   else if (q14_z === "Both: Yes, all get a fair share of both profit / surplus and gain in the company value") { z_level_scores[4] += 5; z_level_scores[5] += 5; }
   else if (q14_z === "No") { z_level_scores[4] -= 5; z_level_scores[5] -= 5; }
 
-  let q15_z = getResponseByQuestion("Does the company regularly, on an ongoing basis for perpetuity, (e.g. annually) rebalance shareholding | equity | tokens to reflect contributions / investments of non-financial capitals (e.g. time, intellectual, relationship, etc.) by staff and / or other stakeholders -- especially unremunerated");
+  let q15_z = getResponseByQuestion("Does the company regularly, on an ongoing basis, for perpetuity, (e.g. annually) rebalance shareholding | equity | tokens to reflect contributions / investments of non-financial capitals (e.g. time, intellectual, relationship, etc.) by staff and / or other stakeholders -- especially unremunerated staff / freelancers / stakeholders");
   if (q15_z === "Yes") { z_level_scores[4] += 5; z_level_scores[5] += 5; }
   else { z_level_scores[4] -= 5; z_level_scores[5] -= 5; }
 
