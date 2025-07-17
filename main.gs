@@ -404,7 +404,7 @@ function onFormSubmit(e) {
   // Construct email
   const subject = `Health check of the foundations of ${R_company_name} prepared for ${R_first_name} ${R_last_name}`;
   let emailBody = `<p>Hi ${R_first_name},</p>`;
-  emailBody += `<p>Here is the first level evaluation of whether your foundations are strong enough to support your ${R_business_intent} business intention for your company ${R_company_name}.</p>`;
+  emailBody += `<p>Here is the first level evaluation of whether your foundations are strong enough to support your ${R_business_intent} business intention for your company ${R_company_name}. Please note that this automated first level evaluation is still in beta release. It is offered as is, any or all of the assessment may be a hallucination. If you find it useful to you and you put anything into action you do so at your own risk.</p>`;
   emailBody += `<p>So, how strong are your foundations, on a scale from 0 (no agency) to 5 (full agency) in each dimension? To build a truly viable future economy only full agency in all three dimensions is strong enough. Scoring 0 to 2 is inadequate, scoring 3 is marginal, scoring 4 is good, and scoring 5 is excellent! Of course even a score of 3 puts you in the top 1% vs. all other companies. So with 4 or 5 you really are pushing against the limits of today’s beliefs.</p>`;
 
   if (!R_only_self_assessment_flag && !R_only_incorporation_flag) {
