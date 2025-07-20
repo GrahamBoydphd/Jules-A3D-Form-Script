@@ -492,23 +492,6 @@ function onFormSubmit(e) {
   R_PMF = getResponseByQuestion("Describe in your own words (up to 600 characters) how you have validated your product-market fit. (Voluntary, gives us more data to assess.)");
   
   /**
-  for (let i = 0; i < itemResponses.length; i++) {
-    if (itemResponses[i].getItem().getTitle().startsWith("Describe in your own words (up to 600 characters) your business concept and guiding intent. (Voluntary, gives us more data to assess.)")) {
-      R_business_intent = itemResponses[i].getResponse();
-      Logger.log("Business Intent");
-      }
-    if (itemResponses[i].getItem().getTitle().startsWith("Describe in your own words (up to 600 characters) how you have validated your product-market fit. (Voluntary, gives us more data to assess.)")) {
-      R_PMF = itemResponses[i].getResponse();
-      Logger.log("PMF");
-      }
-    }
-  }
-  */
-
-
-
-
-  /**
    *
    * Construct email
    *
@@ -752,13 +735,6 @@ function onFormSubmit(e) {
   }
 
   emailBody += `<br>Wishing you all success!<br>Graham<br>--<br><br><b><font color="teal">Graham Boyd, CEO and Founder, Evolutesix</font></b><br><br>`;
-  /** emailBody += "You can learn more from our posts on LinkedIn or Youtube<br>";
-  emailBody += "<b>Investors:</b> Two shorts and a 14 minute explanation video on why portfolio theory is inadequate for regenerative / impact investors in this playlist.<br>";
-  emailBody += "<b>Entrepreneurs:</b> Video on what foundations are strong enough for your regenerative / impact intent. More in this playlist.<br><br>";
-  emailBody += "Go to Evolutesix.com for more on our accelerator, startup, and investor programmes. <br><br>";
-  emailBody += "<b>Author:</b> <i>The Ergodic Investor and Entrepreneur</i>, how to thrive with unpredictability<br>";
-  emailBody += "<b>Author:</b> <i>Rebuild: the Economy, Leadership, and You</i><br>";
-  */
   emailBody += "<br>This email is not advice in any form, certainly neither investment nor legal advice. To the fullest extent of the law, no liability will be accepted, neither by Evolutesix nor the author(s) for any loss related to this content.<br>";
 
 
@@ -774,61 +750,51 @@ function onFormSubmit(e) {
   });
   Logger.log("Email sent to " + recipient);
 
+  // Create a separate email body for Graham with debug information
+  let grahamEmailBody = emailBody;
+
+  grahamEmailBody += "<hr><h3>Business concept and guiding intent</h3>";
+  grahamEmailBody += `<p>${R_business_concept}</p>`;
+  grahamEmailBody += "<h3>Product Market Fit validation</h3>";
+  grahamEmailBody += `<p>${R_PMF}</p>`;
 
 
+  grahamEmailBody += "<hr><h3>Debug Information</h3>";
+  grahamEmailBody += "<h4>Constants:</h4>";
+  grahamEmailBody += `<p>R_first_name: ${R_first_name}</p>`;
+  grahamEmailBody += `<p>R_last_name: ${R_last_name}</p>`;
+  grahamEmailBody += `<p>R_company_name: ${R_company_name}</p>`;
+  grahamEmailBody += `<p>R_role: ${R_role}</p>`;
+  grahamEmailBody += `<p>R_business_intent: ${R_business_intent}</p>`;
+  grahamEmailBody += `<p>R_sector: ${R_sector}</p>`;
+  grahamEmailBody += `<p>R_exit_strategy: ${R_exit_strategy}</p>`;
+  grahamEmailBody += `<p>R_incorporated_flag: ${R_incorporated_flag}</p>`;
+  grahamEmailBody += `<p>Agency_name: ${JSON.stringify(Agency_name)}</p>`;
+  grahamEmailBody += `<p>R_DAO_flag: ${R_DAO_flag}</p>`;
+  grahamEmailBody += `<p>DAO_form: ${DAO_form}</p>`;
+  grahamEmailBody += `<p>R_only_self_assessment_flag: ${R_only_self_assessment_flag}</p>`;
+  grahamEmailBody += `<p>Z_self_assessment_text: ${Z_self_assessment_text}</p>`;
+  grahamEmailBody += `<p>Z_self_assessment_level: ${Z_self_assessment_level}</p>`;
+  grahamEmailBody += `<p>Y_self_assessment_text_long: ${Y_self_assessment_text_long}</p>`;
+  grahamEmailBody += `<p>Y_self_assessment_text: ${Y_self_assessment_text}</p>`;
+  grahamEmailBody += `<p>Y_self_assessment_level: ${Y_self_assessment_level}</p>`;
+  grahamEmailBody += `<p>X_self_assessment_text_long: ${X_self_assessment_text_long}</p>`;
+  grahamEmailBody += `<p>X_self_assessment_text: ${X_self_assessment_text}</p>`;
+  grahamEmailBody += `<p>X_self_assessment_level: ${X_self_assessment_level}</p>`;
+  grahamEmailBody += "<h4>Variables:</h4>";
+  grahamEmailBody += `<p>Y_running_total: ${Y_running_total}</p>`;
+  grahamEmailBody += `<p>X_running_total: ${X_running_total}</p>`;
+  grahamEmailBody += `<p>z_level_scores: ${JSON.stringify(z_level_scores)}</p>`;
+  grahamEmailBody += `<p>Z_scored_level: ${Z_scored_level}</p>`;
+  grahamEmailBody += `<p>Y_scored_level: ${Y_scored_level}</p>`;
+  grahamEmailBody += `<p>X_scored_level: ${X_scored_level}</p>`;
+  grahamEmailBody += `<p>R_only_incorporation_flag: ${R_only_incorporation_flag}</p>`;
+  grahamEmailBody += `<p>R_no_idea_flag: ${R_no_idea_flag}</p>`;
+  grahamEmailBody += `<p>R_no_idea_count: ${R_no_idea_count}</p>`;
 
-
-
-/**
- *
- *  Adding the business plan and product market fit validation text to my email
- *  And adding the debugging text
- *
- *
- */ 
-
-  emailBody += "<hr><h3>Business concept and guiding intent</h3>";
-  emailBody += `<p>${R_business_concept}</p>`;
-  emailBody += "<h3>Product Market Fit validation</h3>";
-  emailBody += `<p>${R_PMF}</p>`;
-
-
-  emailBody += "<hr><h3>Debug Information</h3>";
-  emailBody += "<h4>Constants:</h4>";
-  emailBody += `<p>R_first_name: ${R_first_name}</p>`;
-  emailBody += `<p>R_last_name: ${R_last_name}</p>`;
-  emailBody += `<p>R_company_name: ${R_company_name}</p>`;
-  emailBody += `<p>R_role: ${R_role}</p>`;
-  emailBody += `<p>R_business_intent: ${R_business_intent}</p>`;
-  emailBody += `<p>R_sector: ${R_sector}</p>`;
-  emailBody += `<p>R_exit_strategy: ${R_exit_strategy}</p>`;
-  emailBody += `<p>R_incorporated_flag: ${R_incorporated_flag}</p>`;
-  emailBody += `<p>Agency_name: ${JSON.stringify(Agency_name)}</p>`;
-  emailBody += `<p>R_DAO_flag: ${R_DAO_flag}</p>`;
-  emailBody += `<p>DAO_form: ${DAO_form}</p>`;
-  emailBody += `<p>R_only_self_assessment_flag: ${R_only_self_assessment_flag}</p>`;
-  emailBody += `<p>Z_self_assessment_text: ${Z_self_assessment_text}</p>`;
-  emailBody += `<p>Z_self_assessment_level: ${Z_self_assessment_level}</p>`;
-  emailBody += `<p>Y_self_assessment_text_long: ${Y_self_assessment_text_long}</p>`;
-  emailBody += `<p>Y_self_assessment_text: ${Y_self_assessment_text}</p>`;
-  emailBody += `<p>Y_self_assessment_level: ${Y_self_assessment_level}</p>`;
-  emailBody += `<p>X_self_assessment_text_long: ${X_self_assessment_text_long}</p>`;
-  emailBody += `<p>X_self_assessment_text: ${X_self_assessment_text}</p>`;
-  emailBody += `<p>X_self_assessment_level: ${X_self_assessment_level}</p>`;
-  emailBody += "<h4>Variables:</h4>";
-  emailBody += `<p>Y_running_total: ${Y_running_total}</p>`;
-  emailBody += `<p>X_running_total: ${X_running_total}</p>`;
-  emailBody += `<p>z_level_scores: ${JSON.stringify(z_level_scores)}</p>`;
-  emailBody += `<p>Z_scored_level: ${Z_scored_level}</p>`;
-  emailBody += `<p>Y_scored_level: ${Y_scored_level}</p>`;
-  emailBody += `<p>X_scored_level: ${X_scored_level}</p>`;
-  emailBody += `<p>R_only_incorporation_flag: ${R_only_incorporation_flag}</p>`;
-  emailBody += `<p>R_no_idea_flag: ${R_no_idea_flag}</p>`;
-  emailBody += `<p>R_no_idea_count: ${R_no_idea_count}</p>`;
-
-  emailBody += "<hr><h3>Questions:</h3>";
+  grahamEmailBody += "<hr><h3>Questions:</h3>";
   itemResponses.forEach(itemResponse => {
-    emailBody += `<p>[${itemResponse.getItem().getTitle()}]</p>`;
+    grahamEmailBody += `<p>[${itemResponse.getItem().getTitle()}]</p>`;
   });
 
 
@@ -839,7 +805,7 @@ function onFormSubmit(e) {
   MailApp.sendEmail({
     to: copyToEmail,
     subject: "Copy of " + subject,
-    htmlBody: emailBody
+    htmlBody: grahamEmailBody
   });
   Logger.log("Email sent to " + copyToEmail);
 }
