@@ -767,12 +767,7 @@ function onFormSubmit(e) {
   Logger.log("recipient: " + recipient);
   Logger.log("subject: " + subject);
   Logger.log("emailBody length: " + emailBody.length);
-  MailApp.sendEmail({
-    to: recipient,
-    subject: subject,
-    htmlBody: emailBody
-  });
-  Logger.log("Email sent to " + recipient);
+  sendEmailWithAttachment(recipient, subject, emailBody);
 
 
 
@@ -836,10 +831,6 @@ function onFormSubmit(e) {
 
   // Send email to Graham
   var copyToEmail = "graham@evolutesix.com";
-  MailApp.sendEmail({
-    to: copyToEmail,
-    subject: "Copy of " + subject,
-    htmlBody: emailBody
-  });
+  sendEmailWithAttachment(copyToEmail, "Copy of " + subject, emailBody);
   Logger.log("Email sent to " + copyToEmail);
 }
