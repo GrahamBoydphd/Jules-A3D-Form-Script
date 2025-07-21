@@ -590,7 +590,7 @@ function onFormSubmit(e) {
   } else if (!R_only_self_assessment_flag && R_only_incorporation_flag) {
     Y_scored_level = Y_self_assessment_level;
     X_scored_level = X_self_assessment_level;
-    emailBody += `<p>Because you did the full healthcheck for the ${DAO_form} dimension only, and the self-assessment for the work and human dimensions, I can only compare your ${DAO_form} self-assessment and full evaluation. If you want a comparison between your actual strength and your perception of the work and human dimensions, please edit the form and fill in these dimensions in.</p>`;
+    emailBody += `<p>Because you did the full healthcheck for the ${DAO_form} dimension, but only the self-assessment for the work and human dimensions, I can only compare your ${DAO_form} self-assessment and full evaluation. If you want a comparison between your actual strength and your perception of the work and human dimensions, please edit the form and fill in these dimensions in. For the rest of the email I'll use a fictitious evaluation score for your work and human dimensions, equal to your self-assessment. Of course, if your self-assessment differs from your actual, the guidance is likely to be misleading.</p>`;
     emailBody += `<ul>`;
     emailBody += `<li>For the ${DAO_form} dimension your score is: ${Z_scored_level} ${Agency_name[Z_scored_level]}; compared to your self-assessment: ${Z_self_assessment_level} ${Agency_name[Z_self_assessment_level]}, ${Z_self_assessment_text}.</li>`;
     emailBody += `<li>For the work / organisation design dimension your self-assessment is: ${Y_self_assessment_level} ${Agency_name[Y_self_assessment_level]}, ${Y_self_assessment_text}</li>`;
