@@ -575,7 +575,13 @@ function onFormSubmit(e) {
   
   
   const subject = `Health check of the foundations of ${R_company_name} prepared for ${R_first_name} ${R_last_name}`;
-  let emailBody = `<p>Hi ${R_first_name},</p>`;
+  const logoFile = DriveApp.getFilesByName("[Black]EvolutesixLogo22.png").next();
+  const logoBlob = logoFile.getBlob().setContentType('image/png');
+  const logoData = Utilities.base64Encode(logoBlob.getBytes());
+  const logoCid = 'logoImage';
+
+  let emailBody = `<div style="text-align: center;"><img src="cid:${logoCid}" alt="Evolutesix Logo" style="width: 100%; max-height: 2cm;"></div>`;
+  emailBody += `<p>Hi ${R_first_name},</p>`;
   emailBody += `<p>Here is the first level evaluation of whether your foundations are strong enough to support your ${R_business_intent} business intention for your company ${R_company_name}, where you have the role of ${R_role}. Please note that this automated first level evaluation is still in beta release. It is offered as is, any or all of the assessment may be a hallucination. If you find it useful to you and you put anything into action you do so at your own risk.</p>`;
   emailBody += `<p>And recall my warning at the start of the questionnaire. Reading this may hurt a little, because you, like many, may learn that your foundations are not as robust as you thought. Better to learn from the failures of others what foundations you need to lay down at the start, rather than spending years of your life, and millions in your and your investors' money, learning from your own expensive failures.</p><br>`;
   
@@ -724,6 +730,8 @@ function onFormSubmit(e) {
       emailBody += "</ul>";
   }
 
+  emailBody += `<div style="text-align: center;"><a href="https://www.evolutesix.com/store/products/healthcheck-and-consulting-session-on-your-fitness-legal-organisation" target="_blank" style="background-color: teal; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px;">detailed diagnosis and action planning consultation</a></div>`;
+
   if (R_role === "Investor") {
       emailBody += "<h3>For you as an investor</h3>";
       emailBody += "<p>To maximise your chances of all your investments delivering the financial returns " ;
@@ -833,11 +841,17 @@ function onFormSubmit(e) {
 
 function sendEmailWithAttachment(recipient, subject, emailBody) {
   const pdfFile = DriveApp.getFilesByName('Overview_3D_AOM.pdf').next();
+  const logoFile = DriveApp.getFilesByName("[Black]EvolutesixLogo22.png").next();
+  const logoBlob = logoFile.getBlob().setContentType('image/png');
+
   MailApp.sendEmail({
     to: recipient,
     subject: subject,
     htmlBody: emailBody,
-    attachments: [pdfFile.getAs(MimeType.PDF)]
+    attachments: [pdfFile.getAs(MimeType.PDF)],
+    inlineImages: {
+      logoImage: logoBlob
+    }
   });
   Logger.log("Email sent to " + recipient);
 }
