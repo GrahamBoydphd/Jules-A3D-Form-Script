@@ -600,7 +600,7 @@ function onFormSubmit(e) {
     Z_scored_level = Z_self_assessment_level;
     Y_scored_level = Y_self_assessment_level;
     X_scored_level = X_self_assessment_level;
-    emailBody += `<p>As you chose to only provide your self-assessment we cannot give you any guidance on possible discrepancies between your foundation’s actual strength versus your beliefs about your foundation’s strength.</p>`;
+    emailBody += `<p>As you chose to only provide your self-assessment we cannot give you any guidance on possible discrepancies between your foundation’s actual strength versus your beliefs about your foundation’s strength. If you want a comparison between your actual and your perception of your foundation’s strength, please edit the form and fill in all three dimensions in. For the rest of the email I'll use a fictitious evaluation score equal to your self-assessment. Of course, if your self-assessment differs from your actual, the guidance is likely to be misleading.</p>`;
     emailBody += `<ul>`;
     emailBody += `<li>For the ${DAO_form} dimension your self-assessment is: ${Z_self_assessment_level} ${Agency_name[Z_self_assessment_level]}, ${Z_self_assessment_text}.</li>`;
     emailBody += `<li>For the work / organisation design dimension your self-assessment is: ${Y_self_assessment_level} ${Agency_name[Y_self_assessment_level]}, ${Y_self_assessment_text}.</li>`;
