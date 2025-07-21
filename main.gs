@@ -22,6 +22,7 @@ function onFormSubmit(e) {
   const Agency_name = ["No agency", "Almost no agency", "Limited agency", "Some agency", "Good agency", "Full agency"];
   let R_DAO_flag = false;
   let DAO_form = "incorporation";
+  let R_ergodicity_score = 0;
   let Y_running_total = 0;
   let X_running_total = 0;
   let R_only_self_assessment_flag = false;
@@ -200,8 +201,8 @@ function onFormSubmit(e) {
     case "1": z_level_scores[0] += 1; z_level_scores[1] += 1; Logger.log("Action: Added 1 to z_level_scores 0-1"); break;
     case "2": z_level_scores[0] += 1; z_level_scores[1] += 1; z_level_scores[2] += 1; z_level_scores[3] += 1; Logger.log("Action: Added 1 to z_level_scores 0-3"); break;
     case "3": z_level_scores[2] += 1; z_level_scores[3] += 1; z_level_scores[4] += 1; Logger.log("Action: Added 1 to z_level_scores 2-4"); break;
-    case "4": z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 4-5"); break;
-    case "5": z_level_scores[4] += 2; z_level_scores[5] += 2; Logger.log("Action: Added 2 to z_level_scores 4-5"); break;
+    case "4": z_level_scores[4] += 1; z_level_scores[5] += 1; Logger.log("Action: Added 1 to z_level_scores 4-5"); R_ergodicity_score +-1; break;
+    case "5": z_level_scores[4] += 2; z_level_scores[5] += 2; Logger.log("Action: Added 2 to z_level_scores 4-5"); R_ergodicity_score +-2; break;
     default: Logger.log("Action: No case matched for question 16z");
   }
 
@@ -491,6 +492,9 @@ function onFormSubmit(e) {
   R_business_concept = getResponseByQuestion("Describe in your own words (up to 600 characters) your business concept and guiding intent. (Voluntary, gives us more data to assess.)");
   R_PMF = getResponseByQuestion("Describe in your own words (up to 600 characters) how you have validated your product-market fit. (Voluntary, gives us more data to assess.)");
   
+
+
+
   /**
    *
    * Construct email
@@ -558,6 +562,10 @@ function onFormSubmit(e) {
     emailBody += "<ul><li>your " + DAO_form + " " + z_strength + "; and your work / organisation design and your human foundation may well be strong enough. Well done! You’re likely building foundations way stronger than most! You’ll find out more clearly where you can get your foundations even stronger in order to reduce the risk of mission creep or your foundations breaking when you sign up for the follow-on consulting session.</li></ul>\n";
   } else if (["Regenerative", "Sustainable", "Circular", "Net Positive", "Impact"].includes(R_business_intent)) {
       emailBody += "<ul>";
+      if (Z_scored_level === 5) {
+          emailBody += "<li>you’re incorporating in a new paradigm way, well done! For your" + R_business_intent + " intent you have the best foundation around to minimise the risk of intent / mission creep. In particular you have the adaptive capacity needed to keep adapting your incorporation to suit emerging challenges.</li>\n";}
+      if (Z_scored_level === 4) {
+          emailBody += "<li>you’re incorporating in a way that superbly solves many of the problems typical business causes, and is almost leaving the old paradigm behind. Your incorporation foundation’s strength could be made even stronger, which your" + R_business_intent + " intent needs, with just a little tuning. This will minimise the risk of intent / mission creep.</li>\n";}
       if (Z_scored_level === 3) {
           emailBody += "<li>even though you’re incorporating in a way that superbly solves many of the problems typical business causes, you’re still within the old paradigm. Your incorporation foundation’s strength, whilst better than typical businesses, is still marginal vs. your intention to be truly: " + R_business_intent + ". Your incorporation form has weakness that typically, sooner or later, either: fail under the load of achieving your intention; or lead to weakening your intent / mission creep.</li>\n";
       } else if (Z_scored_level <= 2) {
@@ -669,11 +677,17 @@ function onFormSubmit(e) {
   if (ergodicity_response === "Skill and effort are the primary drivers of business performance, business is a meritocracy. We only have robust ways of maximising the business outcomes of skill and effort") {
     emailBody += "<li><b>Volatility:</b> Regarding your approach to hedging against bad luck, and seizing the opportunities good luck brings, you’re leaving potential lying on the table, and are needlessly exposed to risk. You’re also likely to be mis-attributing outcomes of profit or loss to skills / effort being strong or weak respectively. So you may believe someone is good or no good, but they were just lucky or unlucky respectively. This is neither beneficial for you nor for your investors.</li>\n\n";
   } else if (ergodicity_response === "Both are important. We have robust ways of maximising the business outcomes of skill and effort, but little formal resource pooling with other companies and our investors to hedge against detrimental and for beneficial unpredictabilities") {
-    emailBody += "<li><b>Volatility:</b> Regarding your approach to hedging against bad luck, and seizing the opportunities good luck brings, you have some understanding of the relationship between skill and effort on the one hand, and unpredictability on the other. But you only have strong foundations on the skills / effort side, not to maximise outcomes from unpredictability. So you’re leaving potential lying on the table, and are needlessly exposed to risk. You’re likely to be appropriately attributing outcomes of profit or loss to skills / effort vs. unpredictability (good or bad luck). But you could do much better with unpredictables! This improvement would be beneficial for you and for your investors.</li>\n\n";
+    emailBody += "<li><b>Volatility:</b> Regarding your approach to hedging against bad luck, and qseizing the opportunities good luck brings, you have some understanding of the relationship between skill and effort on the one hand, and unpredictability on the other. But you only have strong foundations on the skills / effort side, not to maximise outcomes from unpredictability. So you’re leaving potential lying on the table, and are needlessly exposed to risk. You’re likely to be appropriately attributing outcomes of profit or loss to skills / effort vs. unpredictability (good or bad luck). But you could do much better with unpredictables! This improvement would be beneficial for you and for your investors.</li>\n\n";
   } else if (ergodicity_response === "Both are important. We have robust ways of maximising the business outcomes of skill and effort, and some resources are pooled with other companies and investors to hedge against detrimental and for beneficial unpredictabilities") {
-    emailBody += "<li><b>Volatility:</b> Regarding your approach to hedging against bad luck, and seizing the opportunities good luck brings, you have an understanding of the relationship between skill and effort on the one hand, and unpredictability on the other. You have good foundations on both sides. But you could do even better with unpredictables! This improvement would be beneficial for you and for your investors.</li>\n\n";
+    emailBody += "<li><b>Volatility:</b> Regarding your approach to hedging against bad luck, and seizing the opportunities good luck brings, you have an understanding of the relationship between skill and effort on the one hand, and unpredictability on the other. You have good foundations on both sides. But you could do even better with unpredictables! This improvement would be beneficial for you and for your investors.";
+    if (R_ergodicity_score>=1) {
+      emailBody += "Your having incorporated in a way that, according to your responses, is designed to enable profit pooling, suggests that you already have the foundations you need. So the improvement may well be low hanging fruit.</li>\n\n"} else {emailBody += "</li>\n\n"} 
   } else if (ergodicity_response === "Both are important. We have robust ways of maximising the business outcomes of skill and effort, and robust pooling mechanisms including profit pooling within a diverse ecosystem of multiple companies to hedge against detrimental and for beneficial unpredictabilities") {
-    emailBody += "<li><b>Volatility:</b> You seem to have an excellent understanding of the relationship between skills / effort and unpredictability, which you seem to have used to build solid foundations to maximise the outcomes from each. Of course, there may well be areas where you can do even better!</li>\n\n";
+    emailBody += "<li><b>Volatility:</b> You seem to have an excellent understanding of the relationship between skills / effort and unpredictability.";
+    if (R_ergodicity_score>=1) {
+      emailBody += " Which you seem to have used to build solid 3D foundations to maximise the outcomes from each. Of course, there may well be areas where you can do even better!</li>\n\n"} 
+      else {emailBody += " You may well be close to having the solid 3D foundations you need to make the most of both skills and luck. Key is now to implement them with a diverse enough group of companies having complementary businesses.</li>\n\n"
+    } 
   }
 
   if (theory_x_y_response === "people are inherently lazy and must be controlled, incentivised, and threatened") {
@@ -723,7 +737,7 @@ function onFormSubmit(e) {
   emailBody += "</ul>";
   
   emailBody += "<br><h3>Action you can take</h3>";
-  emailBody += "<p>You can find more information about the incorporation dimension in my YouTube channel, especially in <a href='https://www.youtube.com/playlist?list=PL35xWnDyNa_97x7_I06ytop8Jg9PfGcDL'>this playlist</a> for entrepreneurs. <a href='https://www.linkedin.com/pulse/regenerative-washing-five-warning-signs-graham-boyd-bxn9e'>This short post</a> on LinkedIn introduces why weakness in these foundations leads to well-intentioned initiatives like sustainability ending up as sustainability washing. You can also take <a href='https://www.evolutesix.com/regenerative-foundations-online'>this online course</a> and read about the three foundational dimensions in the attached summary, taken from my book <i>Rebuild the Economy, Leadership, and You</i>.</p>\n\n";
+  emailBody += "<p>You can find more information about the incorporation dimension in my YouTube channel, especially in <a href='https://www.youtube.com/playlist?list=PL35xWnDyNa_97x7_I06ytop8Jg9PfGcDL'>this playlist</a> for entrepreneurs. <a href='https://www.linkedin.com/pulse/regenerative-washing-five-warning-signs-graham-boyd-bxn9e'>This short post</a> on LinkedIn introduces why weakness in these foundations leads to well-intentioned initiatives like sustainability ending up as sustainability washing. You can also take <a href='https://www.evolutesix.com/regenerative-foundations-online'>this online course</a> and read about the three foundational dimensions in the attached summary from my book <i>Rebuild the Economy, Leadership, and You</i>.</p>\n\n";
   emailBody += "<p>To be updated as we release more helpful videos, tools, and programmes you can sign up for, follow Evolutesix on <a href='https://www.linkedin.com/company/evolutesix/'>LinkedIn</a> and sign up on our <a href='https://www.evolutesix.com/contactus'>mailing list</a>.</p>";
   emailBody += `<p>${R_first_name}, there’s a lot more you can get out of the data you’ve given. Book a <a href="https://www.evolutesix.com/legal-od-strong-enough">strategy consulting session</a> and you'll get a deeper dive into how strong your foundations are, and options for your strategy and activity plan to strengthen them, so that ${R_company_name} will have robust enough foundations for your ${R_business_intent} intent!</p>\n\n <p>We’ve heard time and time again from other people in your ${R_role} role: “I didn’t even know that that was possible”. If you’re sure that nothing of value can come from one initial consulting session with us, then we in Evolutesix wish you all success, hope to one day read good news about you in the headlines, and thank you for filling in the form!</p>\n\n <p>And, if you want to change some of your responses, go to the email you received with all of your responses, and click on the option to edit the form.</p>\n\n`;
 
@@ -738,63 +752,79 @@ function onFormSubmit(e) {
   emailBody += "<br>This email is not advice in any form, certainly neither investment nor legal advice. To the fullest extent of the law, no liability will be accepted, neither by Evolutesix nor the author(s) for any loss related to this content.<br>";
 
 
+function sendEmailWithAttachment(recipient, subject, emailBody) {
+  const pdfFile = DriveApp.getFilesByName('Overview_3D_AOM.pdf').next();
+  MailApp.sendEmail({
+    to: recipient,
+    subject: subject,
+    htmlBody: emailBody,
+    attachments: [pdfFile.getAs(MimeType.PDF)]
+  });
+  Logger.log("Email sent to " + recipient);
+}
+
   // Send email
   const recipient = e.response.getRespondentEmail();
   Logger.log("recipient: " + recipient);
   Logger.log("subject: " + subject);
   Logger.log("emailBody length: " + emailBody.length);
-  MailApp.sendEmail({
-    to: recipient,
-    subject: subject,
-    htmlBody: emailBody
-  });
-  Logger.log("Email sent to " + recipient);
-
-  // Create a separate email body for Graham with debug information
-  let grahamEmailBody = emailBody;
-
-  grahamEmailBody += "<hr><h3>Business concept and guiding intent</h3>";
-  grahamEmailBody += `<p>${R_business_concept}</p>`;
-  grahamEmailBody += "<h3>Product Market Fit validation</h3>";
-  grahamEmailBody += `<p>${R_PMF}</p>`;
+  sendEmailWithAttachment(recipient, subject, emailBody);
 
 
-  grahamEmailBody += "<hr><h3>Debug Information</h3>";
-  grahamEmailBody += "<h4>Constants:</h4>";
-  grahamEmailBody += `<p>R_first_name: ${R_first_name}</p>`;
-  grahamEmailBody += `<p>R_last_name: ${R_last_name}</p>`;
-  grahamEmailBody += `<p>R_company_name: ${R_company_name}</p>`;
-  grahamEmailBody += `<p>R_role: ${R_role}</p>`;
-  grahamEmailBody += `<p>R_business_intent: ${R_business_intent}</p>`;
-  grahamEmailBody += `<p>R_sector: ${R_sector}</p>`;
-  grahamEmailBody += `<p>R_exit_strategy: ${R_exit_strategy}</p>`;
-  grahamEmailBody += `<p>R_incorporated_flag: ${R_incorporated_flag}</p>`;
-  grahamEmailBody += `<p>Agency_name: ${JSON.stringify(Agency_name)}</p>`;
-  grahamEmailBody += `<p>R_DAO_flag: ${R_DAO_flag}</p>`;
-  grahamEmailBody += `<p>DAO_form: ${DAO_form}</p>`;
-  grahamEmailBody += `<p>R_only_self_assessment_flag: ${R_only_self_assessment_flag}</p>`;
-  grahamEmailBody += `<p>Z_self_assessment_text: ${Z_self_assessment_text}</p>`;
-  grahamEmailBody += `<p>Z_self_assessment_level: ${Z_self_assessment_level}</p>`;
-  grahamEmailBody += `<p>Y_self_assessment_text_long: ${Y_self_assessment_text_long}</p>`;
-  grahamEmailBody += `<p>Y_self_assessment_text: ${Y_self_assessment_text}</p>`;
-  grahamEmailBody += `<p>Y_self_assessment_level: ${Y_self_assessment_level}</p>`;
-  grahamEmailBody += `<p>X_self_assessment_text_long: ${X_self_assessment_text_long}</p>`;
-  grahamEmailBody += `<p>X_self_assessment_text: ${X_self_assessment_text}</p>`;
-  grahamEmailBody += `<p>X_self_assessment_level: ${X_self_assessment_level}</p>`;
-  grahamEmailBody += "<h4>Variables:</h4>";
-  grahamEmailBody += `<p>Y_running_total: ${Y_running_total}</p>`;
-  grahamEmailBody += `<p>X_running_total: ${X_running_total}</p>`;
-  grahamEmailBody += `<p>z_level_scores: ${JSON.stringify(z_level_scores)}</p>`;
-  grahamEmailBody += `<p>Z_scored_level: ${Z_scored_level}</p>`;
-  grahamEmailBody += `<p>Y_scored_level: ${Y_scored_level}</p>`;
-  grahamEmailBody += `<p>X_scored_level: ${X_scored_level}</p>`;
-  grahamEmailBody += `<p>R_only_incorporation_flag: ${R_only_incorporation_flag}</p>`;
-  grahamEmailBody += `<p>R_no_idea_flag: ${R_no_idea_flag}</p>`;
-  grahamEmailBody += `<p>R_no_idea_count: ${R_no_idea_count}</p>`;
 
-  grahamEmailBody += "<hr><h3>Questions:</h3>";
+
+
+
+/**
+ *
+ *  Adding the business plan and product market fit validation text to my email
+ *  And adding the debugging text
+ *
+ *
+ */ 
+
+  emailBody += "<hr><h3>Business concept and guiding intent</h3>";
+  emailBody += `<p>${R_business_concept}</p>`;
+  emailBody += "<h3>Product Market Fit validation</h3>";
+  emailBody += `<p>${R_PMF}</p>`;
+
+
+  emailBody += "<hr><h3>Debug Information</h3>";
+  emailBody += "<h4>Constants:</h4>";
+  emailBody += `<p>R_first_name: ${R_first_name}</p>`;
+  emailBody += `<p>R_last_name: ${R_last_name}</p>`;
+  emailBody += `<p>R_company_name: ${R_company_name}</p>`;
+  emailBody += `<p>R_role: ${R_role}</p>`;
+  emailBody += `<p>R_business_intent: ${R_business_intent}</p>`;
+  emailBody += `<p>R_sector: ${R_sector}</p>`;
+  emailBody += `<p>R_exit_strategy: ${R_exit_strategy}</p>`;
+  emailBody += `<p>R_incorporated_flag: ${R_incorporated_flag}</p>`;
+  emailBody += `<p>Agency_name: ${JSON.stringify(Agency_name)}</p>`;
+  emailBody += `<p>R_DAO_flag: ${R_DAO_flag}</p>`;
+  emailBody += `<p>DAO_form: ${DAO_form}</p>`;
+  emailBody += `<p>R_only_self_assessment_flag: ${R_only_self_assessment_flag}</p>`;
+  emailBody += `<p>Z_self_assessment_text: ${Z_self_assessment_text}</p>`;
+  emailBody += `<p>Z_self_assessment_level: ${Z_self_assessment_level}</p>`;
+  emailBody += `<p>Y_self_assessment_text_long: ${Y_self_assessment_text_long}</p>`;
+  emailBody += `<p>Y_self_assessment_text: ${Y_self_assessment_text}</p>`;
+  emailBody += `<p>Y_self_assessment_level: ${Y_self_assessment_level}</p>`;
+  emailBody += `<p>X_self_assessment_text_long: ${X_self_assessment_text_long}</p>`;
+  emailBody += `<p>X_self_assessment_text: ${X_self_assessment_text}</p>`;
+  emailBody += `<p>X_self_assessment_level: ${X_self_assessment_level}</p>`;
+  emailBody += "<h4>Variables:</h4>";
+  emailBody += `<p>Y_running_total: ${Y_running_total}</p>`;
+  emailBody += `<p>X_running_total: ${X_running_total}</p>`;
+  emailBody += `<p>z_level_scores: ${JSON.stringify(z_level_scores)}</p>`;
+  emailBody += `<p>Z_scored_level: ${Z_scored_level}</p>`;
+  emailBody += `<p>Y_scored_level: ${Y_scored_level}</p>`;
+  emailBody += `<p>X_scored_level: ${X_scored_level}</p>`;
+  emailBody += `<p>R_only_incorporation_flag: ${R_only_incorporation_flag}</p>`;
+  emailBody += `<p>R_no_idea_flag: ${R_no_idea_flag}</p>`;
+  emailBody += `<p>R_no_idea_count: ${R_no_idea_count}</p>`;
+
+  emailBody += "<hr><h3>Questions:</h3>";
   itemResponses.forEach(itemResponse => {
-    grahamEmailBody += `<p>[${itemResponse.getItem().getTitle()}]</p>`;
+    emailBody += `<p>[${itemResponse.getItem().getTitle()}]</p>`;
   });
 
 
@@ -802,10 +832,6 @@ function onFormSubmit(e) {
 
   // Send email to Graham
   var copyToEmail = "graham@evolutesix.com";
-  MailApp.sendEmail({
-    to: copyToEmail,
-    subject: "Copy of " + subject,
-    htmlBody: grahamEmailBody
-  });
+  sendEmailWithAttachment(copyToEmail, "Copy of " + subject, emailBody);
   Logger.log("Email sent to " + copyToEmail);
 }
