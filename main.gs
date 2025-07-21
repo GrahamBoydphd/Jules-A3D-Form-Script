@@ -609,8 +609,7 @@ function onFormSubmit(e) {
     emailBody += `</ul>`;
   }
 
-  emailBody += `<p>Do you have now what you need to build a robust ${R_business_intent} company?</p>`;
-  emailBody += `<a href="https://www.evolutesix.com/store/products/healthcheck-and-consulting-session-on-your-fitness-legal-organisation" target="_blank" style="background-color: teal; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px;">Detailed diagnosis and action planning consultation</a>`;
+  emailBody += `<p>Are you sure you now have all you need to build a robust ${R_business_intent} company? If not, the next step is to sign up for a detailed diagnosis and strategic action planning consultation.</p>`;
 
   emailBody += "\n\n";
 
@@ -725,9 +724,6 @@ function onFormSubmit(e) {
       emailBody += "</ul>";
   }
 
-  emailBody += `<p>Do you have now what you need to build a robust ${R_business_intent} company?</p>`;
-  emailBody += `<a href="https://www.evolutesix.com/store/products/healthcheck-and-consulting-session-on-your-fitness-legal-organisation" target="_blank" style="background-color: teal; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px;">Detailed diagnosis and action planning consultation</a>`;
-
   if (R_role === "Investor") {
       emailBody += "<h3>For you as an investor</h3>";
       emailBody += "<p>To maximise your chances of all your investments delivering the financial returns " ;
@@ -823,7 +819,7 @@ function onFormSubmit(e) {
   emailBody += "<p>To be updated as we release more helpful videos, tools, and programmes you can sign up for, follow Evolutesix on <a href='https://www.linkedin.com/company/evolutesix/'>LinkedIn</a> and sign up on our <a href='https://www.evolutesix.com/contactus'>mailing list</a>.</p>";
   emailBody += `<p>${R_first_name}, there’s a lot more you can get out of the data you’ve given. Book a <a href="https://www.evolutesix.com/legal-od-strong-enough">strategy consulting session</a> and you'll get a deeper dive into how strong your foundations are, and options for your strategy and activity plan to strengthen them, so that ${R_company_name} will have robust enough foundations for your ${R_business_intent} intent!</p>\n\n <p>We’ve heard time and time again from other people in your ${R_role} role: “I didn’t even know that that was possible”. If you’re sure that nothing of value can come from one initial consulting session with us, then we in Evolutesix wish you all success, hope to one day read good news about you in the headlines, and thank you for filling in the form!</p>\n\n <p>And, if you want to change some of your responses, go to the email you received with all of your responses, and click on the option to edit the form.</p>\n\n`;
 
-  emailBody += `<a href="https://www.evolutesix.com/store/products/healthcheck-and-consulting-session-on-your-fitness-legal-organisation" target="_blank" style="background-color: teal; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px;">Detailed diagnosis and action planning consultation</a>`;
+  emailBody += `<div style="text-align: center;"><a href="https://www.evolutesix.com/store/products/healthcheck-and-consulting-session-on-your-fitness-legal-organisation" target="_blank" style="background-color: teal; color: white; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px;">detailed diagnosis and action planning consultation</a></div>`;
   emailBody += "<p>Thank you for your time filling in this assessment!</p>\n";
   if (feedback_comments.length > 0) {
     emailBody += "<p>We appreciate the feedback you have already given us while filling in the form. We’d love to hear more from you, especially if you have any questions, or any additional feedback on the assessment itself or this email.</p>\n";
