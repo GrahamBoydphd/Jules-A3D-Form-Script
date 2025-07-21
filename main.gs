@@ -275,9 +275,8 @@ function onFormSubmit(e) {
   Logger.log("Z_scored_level: " + Z_scored_level);
 
   // Dimension Y
-  if (!R_only_self_assessment_flag && !R_only_incorporation_flag) {
-    Y_self_assessment_text_long = getResponseByQuestion("What kind of organisation design do you have? Choose the one that most closely describes what you see happening in practice, not what's just written but not practiced. If you're not familiar with some options, you likely don't have that");
-    Logger.log("Y_self_assessment_text_long: " + Y_self_assessment_text_long);
+  Y_self_assessment_text_long = getResponseByQuestion("What kind of organisation design do you have? Choose the one that most closely describes what you see happening in practice, not what's just written but not practiced. If you're not familiar with some options, you likely don't have that");
+  Logger.log("Y_self_assessment_text_long: " + Y_self_assessment_text_long);
   switch (Y_self_assessment_text_long) {
     case "Hierarchy of roles with micro-management, each with a job description and title, senior roles closely manage the work of their direct reports; you rise in the hierarchy through promotion": Y_self_assessment_text = "Traditional hierarchy, significant micro-management"; Y_self_assessment_level = 0; Logger.log(`Action: Y self-assess ${Y_self_assessment_text}`); break;
     case "Hierarchy of roles with delegation, each with a job description and title, senior roles define top level objectives and goals, then delegate accountability for how to deliver them to their direct reports; you rise in the hierarchy through promotion": Y_self_assessment_text = "Hierarchy, significant delegation"; Y_self_assessment_level = 1; Logger.log(`Action: Y self-assess ${Y_self_assessment_text}`); break;
@@ -288,6 +287,8 @@ function onFormSubmit(e) {
     case "Autopoietic: in addition to the above, there are structures and processes in place enabling staff  (rather than only investors) to recognise and turn to action when it's time for the organisation to cease to exist, to create spin-offs / offspring, to merge with another organisation": Y_self_assessment_text = "Autopoietic"; Y_self_assessment_level = 5; Logger.log(`Action: Y self-assess ${Y_self_assessment_text}`); break;
     default: Logger.log("Action: No case matched for Y self-assessment");
   }
+
+  if (!R_only_self_assessment_flag && !R_only_incorporation_flag) {
   
   let q1_y = getResponseByQuestion("There are systems in place that encourage and support the orientation of all members of the organization along the strategic imperatives");
   if (q1_y) {
@@ -382,9 +383,8 @@ function onFormSubmit(e) {
 }
 
   // Dimension X
-  if (!R_only_self_assessment_flag && !R_only_incorporation_flag) {
-    X_self_assessment_text_long = getResponseByQuestion("What kind of human development and culture do you have? Choose the one that most closely describes what is happening in practice, not what may be written down");
-    Logger.log("X_self_assessment_text_long: " + X_self_assessment_text_long);
+  X_self_assessment_text_long = getResponseByQuestion("What kind of human development and culture do you have? Choose the one that most closely describes what is happening in practice, not what may be written down");
+  Logger.log("X_self_assessment_text_long: " + X_self_assessment_text_long);
   switch (X_self_assessment_text_long) {
     case "It's all about making best use of the skills staff have, hiring when we need new skills, firing when we no longer need someone's skills, to deliver the immediate tasks ahead of us": X_self_assessment_text = "Short term gain"; X_self_assessment_level = 0; Logger.log(`Action: X self-assess ${X_self_assessment_text}`); break;
     case "People are hired for the long term fit, so individual skills are regularly strengthened and new skills developed so that today's staff are fit for future tasks": X_self_assessment_text = "Strengths and skills"; X_self_assessment_level = 1; Logger.log(`Action: X self-assess ${X_self_assessment_text}`); break;
@@ -394,6 +394,7 @@ function onFormSubmit(e) {
     case "Development is a core purpose at the same priority level any other top level business purpose, e.g. the customer purpose(s)": X_self_assessment_text = "Inner development is a core purpose"; X_self_assessment_level = 5; Logger.log(`Action: X self-assess ${X_self_assessment_text}`); break;
     default: Logger.log("Action: No case matched for X self-assessment");
   }
+  if (!R_only_self_assessment_flag && !R_only_incorporation_flag) {
   
   let q1_x = getResponseByQuestion("How is employee performance most often discussed or evaluated?");
   if (q1_x) {
