@@ -580,17 +580,7 @@ function onFormSubmit(e) {
   const logoData = Utilities.base64Encode(logoBlob.getBytes());
   const logoCid = 'logoImage';
 
-  let emailBody = `
-    <style>
-      @media (min-width: 600px) {
-        .logo {
-          width: 50% !important;
-        }
-      }
-    </style>
-    <div style="text-align: center;">
-      <img src="cid:${logoCid}" alt="Evolutesix Logo" class="logo" style="width: 100%;">
-    </div>`;
+  let emailBody = `<div style="text-align: center;"><img src="cid:${logoCid}" alt="Evolutesix Logo" style="width: 50%;"></div>`;
   emailBody += `<p>Hi ${R_first_name},</p>`;
   emailBody += `<p>Here is the first level evaluation of whether your foundations are strong enough to support your ${R_business_intent} business intention for your company ${R_company_name}, where you have the role of ${R_role}. Please note that this automated first level evaluation is still in beta release. It is offered as is, any or all of the assessment may be a hallucination. If you find it useful to you and you put anything into action you do so at your own risk.</p>`;
   emailBody += `<p>And recall my warning at the start of the questionnaire. Reading this may hurt a little, because you, like many, may learn that your foundations are not as robust as you thought. Better to learn from the failures of others what foundations you need to lay down at the start, rather than spending years of your life, and millions in your and your investors' money, learning from your own expensive failures.</p><br>`;
